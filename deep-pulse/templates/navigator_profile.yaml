@@ -1,0 +1,28 @@
+# Deep Pulse — Navigator Profile (Anonymous Version)
+# This profile is LOCAL-ONLY and defines the intelligence interests of the Node.
+# Separate the Human from the Network by stripping all PII and fingerprintable capabilities.
+
+node_id: "0x[ED25519_PUBLIC_KEY]" # Local reference only, replaced at runtime by src/core/identity.py
+
+# Subscription Manifest: These sectors are broadcast as "Interest CIDs" to the swarm.
+# The swarm prioritizes pushing relevant pulses to your node based on these interests.
+gossip_subscriptions:
+  - sector: environmental_hazards # e.g., RadNet, USGS, FEMA feed anomalies
+  - sector: aviation_anomalies    # e.g., ADS-B military tracks, squawk 7700 patterns
+  - sector: commodity_volatility  # e.g., Gold/Silver spot, maritime oil tanker diversions
+  - sector: infrastructure_drift   # e.g., Power grid frequency, subsea cable latency
+
+# Knowledge Base: Local expertise levels used by the Intel Agent to filter noise.
+# Not broadcast to the swarm.
+knowledge_base:
+  - level: expert
+    domain: osint_methodology
+  - level: intermediate
+    domain: geopolitical_history
+  - level: advanced
+    domain: signals_intelligence
+
+# Reputation (REP-G): Performance-based weight of this Node's voice.
+# Earned by verifying pulses. Initial nodes start at zero.
+reputation_target: REP-G
+sybil_resistance: true # New nodes (zero REP-G) cannot influence consensus.

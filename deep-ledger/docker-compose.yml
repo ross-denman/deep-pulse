@@ -1,0 +1,53 @@
+# ─── Deep Ledger — Docker Compose ───
+# Provides Neo4j (Knowledge Graph) for the Deep Pulse Intelligence Swarm.
+#
+# Usage:
+#   docker-compose up -d          Start services
+#   docker-compose down           Stop services
+#   docker-compose logs -f neo4j  Follow Neo4j logs
+
+version: "3.9"
+
+services:
+  # ═══════════════════════════════════════════════════
+  # Neo4j — Knowledge Graph
+  # ═══════════════════════════════════════════════════
+  neo4j:
+    image: neo4j:5-community
+    container_name: deep-ledger-neo4j
+    ports:
+      - "7474:7474"   # HTTP (Browser UI)
+      - "7687:7687"   # Bolt (Driver)
+    environment:
+      NEO4J_AUTH: neo4j/deep-ledger-secret
+      NEO4J_PLUGINS: '["apoc"]'
+      NEO4J_dbms_memory_heap_max__size: "1G"
+      NEO4J_dbms_memory_pagecache_size: "512M"
+    volumes:
+      - ./neo4j-data:/data
+      - ./neo4j-logs:/logs
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "cypher-shell", "-u", "neo4j", "-p", "deep-ledger-secret", "RETURN 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  # ═══════════════════════════════════════════════════
+  # Deep Ledger Node (Python Application)
+  # ═══════════════════════════════════════════════════
+  # Uncomment when Dockerfile is ready:
+  # deep-ledger-node:
+  #   build: .
+  #   container_name: deep-ledger-node
+  #   env_file: .env
+  #   depends_on:
+  #     neo4j:
+  #       condition: service_healthy
+  #   volumes:
+  #     - ./harvest:/app/harvest
+  #   restart: unless-stopped
+
+volumes:
+  neo4j-data:
+  neo4j-logs:

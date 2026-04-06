@@ -1,0 +1,43 @@
+# Environmental Signals — Global Infrastructure Monitoring
+# Source Metadata: Seeded by Architect Swarm v0.1
+
+perimeter_id: global_environmental_signals
+targets:
+  - url: "https://developer.epa.gov/api/radnet/v1/"
+    name: "EPA RadNet National"
+    sensor: "Gamma/Beta Sieve"
+  
+  - url: "https://waterdata.usgs.gov/nwis/rt"
+    name: "USGS WaterWatch"
+    sensor: "Hydro-Sensor"
+
+  - url: "https://www.ctbto.org/map/"
+    name: "CTBTO International Monitoring"
+    sensor: "Gamma/Beta Sieve"
+
+  - url: "https://adsbexchange.com/"
+    name: "ADS-B Exchange"
+    sensor: "Transponder Audit"
+
+  - url: "https://search.earthdata.nasa.gov/search"
+    name: "NASA Earthdata Search"
+    sensor: "Change Detection"
+
+  - url: "https://www.marinetraffic.com/"
+    name: "MarineTraffic AIS"
+    sensor: "AIS Audit"
+
+keywords:
+  - "radiation"
+  - "nuclear"
+  - "isotope"
+  - "gamma"
+  - "flood"
+  - "streamflow"
+  - "transponder"
+  - "military flight"
+  - "zenon"
+  - "noble gas"
+
+compute_budget: 2.00
+polling_interval: 3600

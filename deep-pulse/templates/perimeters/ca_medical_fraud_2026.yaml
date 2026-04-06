@@ -1,0 +1,34 @@
+id: ca_medical_fraud_2026
+name: California Medical Fraud 2026
+description: Intelligence perimeter for California Medical Fraud 2026 defined via
+  Socratic interview.
+keywords:
+- Los Angeles hospice $3.5B
+- House Energy Commerce letters California 2026
+- Mehmet Oz CMS letter Newsom January 2026
+targets:
+- url: https://energycommerce.house.gov/
+  type: portal
+- url: https://energycommerce.house.gov/subcommittees
+  type: portal
+- url: https://energycommerce.house.gov/news
+  type: portal
+- url: https://www.fincen.gov/news/news-releases/
+  type: portal
+- url: https://oversight.house.gov/news/press-releases/
+  type: portal
+- url: https://energycommerce.house.gov/contact-us
+  type: portal
+- url: https://www.govtrack.us/congress/committees/HSIF
+  type: portal
+- url: https://www.fincen.gov/system/files/2026-03/FinCEN-Advisory-Health-Care-Fraud.pdf
+  type: document
+- url: https://oag.ca.gov/dmfea
+  type: portal
+- url: https://www.auditor.ca.gov
+  type: portal
+- url: https://oig.hhs.gov
+  type: portal
+recursive_depth: 3
+compute_budget: 2.0
+adaptive_rag: true

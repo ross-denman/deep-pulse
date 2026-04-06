@@ -1,0 +1,18 @@
+id: lea_infrastructure
+name: LEAP District (Meta Infrastructure)
+description: Monitoring Meta's $10B infrastructure expansion in Indiana.
+keywords:
+  - Meta
+  - "Data Center"
+  - "Gigawatt"
+  - "Water Permit"
+  - IURC
+  - "Boone County"
+targets:
+  - url: https://iurc.portal.in.gov/search/
+    type: efs_portal
+  - url: https://boonecounty.in.gov/government
+    type: portal
+recursive_depth: 3
+compute_budget: 2.00
+adaptive_rag: true

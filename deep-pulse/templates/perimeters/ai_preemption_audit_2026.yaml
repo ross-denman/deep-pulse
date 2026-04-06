@@ -1,0 +1,36 @@
+id: ai_preemption_audit_2026
+name: AI Preemption Audit 2026
+description: Audit of March 11, 2026 Department of Commerce Evaluation on state AI
+  laws (CA SB 53 vs Federal AI Litigation Task Force).
+keywords:
+- bead
+- $42 billion
+- lutnick
+- 10^26 flops
+- eo 14365
+- ca sb 53
+- innovation first
+- funding conditionality
+- onerous state ai laws
+- california
+- colorado
+targets:
+- url: https://www.commerce.gov/news
+  type: portal
+  bypass_tor: true
+- url: https://www.ntia.gov/category/bead
+  type: portal
+  bypass_tor: true
+- url: https://www.justice.gov/opa/pr
+  type: portal
+  bypass_tor: true
+- url: https://www.commerce.gov/issues/artificial-intelligence
+  type: portal
+  bypass_tor: true
+- url: /news
+  type: verified_discovery
+- url: /opa/pr
+  type: verified_discovery
+recursive_depth: 2
+compute_budget: 10.0
+adaptive_rag: true

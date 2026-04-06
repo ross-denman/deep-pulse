@@ -1,0 +1,17 @@
+id: global_finance
+name: Stock Indexes & Markets
+description: Tracking high-signal market movements and index rebalancing.
+keywords:
+  - S&P 500
+  - Nasdaq
+  - "Index Rebalance"
+  - "VIX Pulse"
+  - "Fed Rate"
+targets:
+  - url: https://www.sec.gov/edgar/search
+    type: edgar
+  - url: https://www.nasdaq.com/market-activity/index
+    type: market_data
+recursive_depth: 2
+compute_budget: 1.50
+adaptive_rag: true

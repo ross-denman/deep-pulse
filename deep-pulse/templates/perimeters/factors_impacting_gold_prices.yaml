@@ -1,0 +1,9 @@
+id: factors_impacting_gold_prices
+name: factors impacting gold prices
+description: Intelligence perimeter for factors impacting gold prices defined via
+  Socratic interview.
+keywords: []
+targets: []
+recursive_depth: 3
+compute_budget: 2.0
+adaptive_rag: true

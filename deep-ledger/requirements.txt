@@ -1,0 +1,25 @@
+# Deep Ledger — Python Dependencies
+
+# ─── Core ───
+cryptography>=43.0.0       # Ed25519 identity & signing
+python-dotenv>=1.0.0       # .env file loading
+pydantic>=2.7.0            # Intelligence Gate — typed schema enforcement
+
+# ─── Scraping ───
+crawl4ai>=0.4.0            # AI-powered web crawling
+httpx>=0.27.0              # Async HTTP client (fallback scraper)
+
+# ─── Graph Database ───
+neo4j>=5.20.0              # Neo4j Python driver
+
+# ─── AI / LLM ───
+openai>=1.30.0             # OpenRouter-compatible API client
+langchain>=0.2.0           # LLM orchestration
+langgraph>=0.1.0           # Stateful agent graphs
+
+# ─── CLI ───
+rich>=13.7.0               # Rich terminal output (optional enhancement)
+
+# ─── Testing ───
+pytest>=8.0.0              # Test framework
+pytest-asyncio>=0.23.0     # Async test support

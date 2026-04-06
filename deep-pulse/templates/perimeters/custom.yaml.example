@@ -1,0 +1,12 @@
+id: custom_example
+name: [Custom Perimeter Name]
+description: [Brief description of what you are tracking]
+keywords:
+  - "Example Keyword 1"
+  - "Example Keyword 2"
+targets:
+  - url: https://example.com/target
+    type: portal
+recursive_depth: 3    # How deep the Curiosity Bot should dream
+compute_budget: 2.00  # Max USD cost per session
+adaptive_rag: true    # Enable tiny local model distillation

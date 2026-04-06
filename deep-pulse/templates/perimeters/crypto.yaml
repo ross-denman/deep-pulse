@@ -1,0 +1,17 @@
+id: crypto_defi
+name: Crypto & DeFi Markets
+description: Intelligence on L1/L2 movements, DeFi exploits, and whale transfers.
+keywords:
+  - Ethereum
+  - Solana
+  - "DeFi Exploit"
+  - "Whale Alert"
+  - "Bridge Liquidity"
+targets:
+  - url: https://etherscan.io/gastracker
+    type: explorer
+  - url: https://defillama.com/yields
+    type: aggregator
+recursive_depth: 4
+compute_budget: 3.00
+adaptive_rag: true

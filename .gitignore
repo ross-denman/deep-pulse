@@ -1,0 +1,12 @@
+# Sovereign Notary — Private Ledger (Soul)
+# DO NOT PUSH TO PUBLIC
+.venv/
+__pycache__/
+*.pyc
+.env
+keys/
+identity.key
+node.key
+*.log
+data/history/
+data/cache/
