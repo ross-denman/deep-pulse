@@ -1,0 +1,22 @@
+avoid_paths:
+- ''
+- /en/net-zero-slot
+- /category/bead
+- /news/news-releases
+- /contact-us/sitemap.xml
+- /news/press-releases/sitemap.xml
+- /congress/committees/HSIF/data
+- /subcommittees/archive
+- /system/files/2026-03/FinCEN-Advisory-Health-Care-Fraud.pdf/data
+- /memory-claims
+- /news/archive/sitemap.xml
+- /subcommittee/full-committee/sitemap.xml
+- /dmfea/data
+- /issues/artificial-intelligence
+- /archive
+- /research
+preferred_paths:
+- /business/port-statistics
+- /news
+- /opa/pr
+- aaos_2026_ozempic_audit.md

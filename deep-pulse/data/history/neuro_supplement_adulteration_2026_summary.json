@@ -1,0 +1,32 @@
+{
+  "mission_id": "neuro_supplement_adulteration_2026",
+  "scout_stats": {
+    "successes": 1,
+    "404_errors": 1,
+    "dreams": 3
+  },
+  "new_potential_sources": [],
+  "heuristics_update": {
+    "avoid_paths": [
+      "/memory-claims"
+    ],
+    "preferred_paths": []
+  },
+  "truth_insights": [
+    {
+      "claim_keyword": "tinnitus_audifort_fraud",
+      "status": "SEMANTIC_HALLUCINATION",
+      "source": "Sovereign Health Auditor",
+      "confidence": 0.05,
+      "invisible_string": "Influencer Parasocial Bias: Promoting unverified 'Audifort' without risk disclosure.",
+      "evidence_fragment": "March 23, 2026 JAMA study: Audifort promotions without disclosure flagged as deceptive."
+    },
+    {
+      "claim_keyword": "Audifort",
+      "status": "CONFIRMED",
+      "source": "markdown_v1",
+      "evidence_fragment": "audifort (360 degree) benefits in the field of hearing health, supporting millions of people with improved hearing health since its creation, including a 90-day guarantee and complimentary bonuses for taking care of your hearing starting today.",
+      "confidence": 0.9
+    }
+  ]
+}
