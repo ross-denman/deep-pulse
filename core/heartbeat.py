@@ -16,9 +16,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 # Add project root to path
-# heartbeat.py is in deep-pulse/src/public/core/
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
-sys_path = str(PROJECT_ROOT / "deep-ledger" / "src")
+sys_path = str(PROJECT_ROOT)
 import sys
 if sys_path not in sys.path:
     sys.path.append(sys_path)
@@ -35,7 +34,7 @@ class HeartbeatManager:
         self.interval = interval_minutes * 60
         self.identity = load_identity()
         self.reputation = ReputationService()
-        self.log_file = PROJECT_ROOT / "deep-ledger" / "harvest" / "heartbeat.log"
+        self.log_file = PROJECT_ROOT / "harvest" / "heartbeat.log"
         
         # Ensure log directory exists
         self.log_file.parent.mkdir(parents=True, exist_ok=True)
