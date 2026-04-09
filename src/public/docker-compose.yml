@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  outpost:
+    build: .
+    container_name: deep-pulse-outpost
+    restart: unless-stopped
+    volumes:
+      - ./harvest:/app/harvest
+      - ./.env:/app/.env
+    # Resource constraints for Pi Zero 2 W stability
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: ["CMD", "python3", "auditor_cli.py", "status"]
+      interval: 1m
+      timeout: 10s
+      retries: 3
+
+networks:
+  default:
+    name: discovery-mesh-network
