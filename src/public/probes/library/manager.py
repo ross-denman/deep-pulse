@@ -33,7 +33,7 @@ class ProbeManager:
 
     def _discover_plugins(self):
         """Recursively scan library categories and load probe classes."""
-        logger.info(f"🔍 [SCANNING LIBRARY] {self.library_path}")
+        logger.info(f"[SRCH] [SCANNING LIBRARY] {self.library_path}")
         
         # Standard Categorical Hierarchy
         categories = ["surface", "deep", "logic", "forensic"]
@@ -61,7 +61,7 @@ class ProbeManager:
                             issubclass(attr, BaseCuriosityProbe) and 
                             attr is not BaseCuriosityProbe):
                             
-                            logger.info(f"✨ [PLUGIN REGISTERED] {category}/{attr_name}")
+                            logger.info(f"[*] [PLUGIN REGISTERED] {category}/{attr_name}")
                             self.registry[f"{category}.{attr_name}"] = attr
                 except Exception as e:
                     logger.error(f"Failed to load plugin {module_name}: {e}")
@@ -90,7 +90,7 @@ class ProbeManager:
         The Multi-Stage Investigative Pipeline.
         Triggers probes recursively based on entity-type matching.
         """
-        logger.info(f"🔄 [PIPELINE START] Seeded with {len(initial_entities)} entities. Governor: {max_depth}")
+        logger.info(f"[SYNC] [PIPELINE START] Seeded with {len(initial_entities)} entities. Governor: {max_depth}")
         if not self.loaded_probes:
             self.load_all()
         self._execute_recursive(initial_entities, depth=1, max_depth=max_depth)
@@ -98,7 +98,7 @@ class ProbeManager:
     def _execute_recursive(self, entities: List[Dict], depth: int, max_depth: int):
         """Internal recursive loop for Data-Triggered Execution."""
         if depth > max_depth:
-            logger.info(f"🛑 [GOVERNOR] Max depth {max_depth} reached. Halting recursion.")
+            logger.info(f"[HALT] [GOVERNOR] Max depth {max_depth} reached. Halting recursion.")
             return
 
         next_tier_entities = []
@@ -110,7 +110,7 @@ class ProbeManager:
 
             matched_probes = self.get_probes_for_type(etype)
             for probe in matched_probes:
-                logger.info(f"🌿 [DEPTH {depth}] {probe.category}/{probe.name} triggered by {etype}:{evalue}")
+                logger.info(f"[DPT] [DEPTH {depth}] {probe.category}/{probe.name} triggered by {etype}:{evalue}")
                 try:
                     # 1. Harvest Chaff (with seed)
                     chaff = probe.harvest(seed=entity)
@@ -122,7 +122,7 @@ class ProbeManager:
                     if not grains:
                         continue
 
-                    logger.info(f"   ✨ {probe.probe_id}: Found {len(grains)} divergent entries.")
+                    logger.info(f"   [*] {probe.probe_id}: Found {len(grains)} divergent entries.")
                     
                     for grain in grains:
                         # 3. Settle Locally (Notarize & Seal)
@@ -133,7 +133,7 @@ class ProbeManager:
                             next_tier_entities.extend(discovered)
                             
                 except Exception as e:
-                    logger.error(f"❌ Pipeline error in {probe.name} at depth {depth}: {e}")
+                    logger.error(f"[ERR] Pipeline error in {probe.name} at depth {depth}: {e}")
 
         if next_tier_entities:
             # Deduplicate next tier entities to prevent redundant work
@@ -145,7 +145,7 @@ class ProbeManager:
                     unique_keys.add(key)
                     dedup_entities.append(e)
             
-            logger.info(f"📈 [NEXT TIER] Depth {depth} produced {len(dedup_entities)} unique seeds for Tier {depth + 1}.")
+            logger.info(f"[TIER] [NEXT TIER] Depth {depth} produced {len(dedup_entities)} unique seeds for Tier {depth + 1}.")
             self._execute_recursive(dedup_entities, depth + 1, max_depth)
 
 if __name__ == "__main__":
@@ -164,7 +164,7 @@ if __name__ == "__main__":
     manager = ProbeManager(outpost_id=outpost_id)
     probes = manager.load_all()
     
-    print(f"\n═══ Probe Registry ({len(probes)} active) ═══")
+    print(f"\n--- Probe Registry ({len(probes)} active) ---")
     for p in probes:
         print(f"[{p.category}] {p.name} (ID: {p.probe_id})")
-    print("═════════════════════════════════\n")
+    print("---------------------------------\n")

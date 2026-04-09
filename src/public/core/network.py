@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-The Chronicle — Network Mechanism Module
+The Chronicle - Network Mechanism Module
 
 Implements the MeshClient for communication with the Bridge Server.
 """

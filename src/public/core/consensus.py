@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-The Chronicle — Consensus Manager
+The Chronicle - Consensus Manager
 
 Implements the 2+1 Verification Triangle for promoting Public Chronicle entries
 from 'speculative' to 'verified' status.
@@ -149,7 +149,7 @@ class ConsensusManager:
         # 4. Check consensus
         if record.is_consensus_reached():
             record.status = "verified"
-            logger.info("✅ Consensus reached for %s — promoted to VERIFIED", entry_cid)
+            logger.info("[OK] Consensus reached for %s - promoted to VERIFIED", entry_cid)
             
             # Payout Grain Inquiries (Economy: The Metabolism)
             if record.grain_inquiry > 0:

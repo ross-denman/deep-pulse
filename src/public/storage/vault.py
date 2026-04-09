@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Deep Ledger — Discovery Vault (Storage Mechanism)
+Deep Ledger - Discovery Vault (Storage Mechanism)
 
 Handles the local persistence of inquiry claims and discovery state.
 Ensures that outposts do not repeat work and maintain an audit trail of actions.

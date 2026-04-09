@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Deep Pulse — Modular Scout (OSINT Correlation)
+Deep Pulse - Modular Scout (OSINT Correlation)
 
 Standardized sensor to plug into various OSINT modules.
 Coordinates with external investigative instances via API.

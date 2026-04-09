@@ -28,7 +28,7 @@ class NLPSurpriseProbe(BaseCuriosityProbe):
 
     def harvest(self) -> List[Any]:
         """Operating on local pulses rather than external feeds."""
-        logger.info(f"[{self.probe_id}] 🧠 Analysing staged pulses for surprise metadata...")
+        logger.info(f"[{self.probe_id}] [AI] Analysing staged pulses for surprise metadata...")
         return []
 
     def sift(self, raw_entries: List[Any]) -> List[Dict[str, Any]]:

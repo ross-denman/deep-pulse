@@ -83,7 +83,7 @@ class SourceAuditor(BaseCuriosityProbe):
             # promotion threshold: 10 settled grains
             if meta["settled_grains"] >= 10 and meta["status"] == "PROBATIONARY":
                 meta["status"] = "VERIFIED"
-                logger.info(f"🏆 [SOURCE PROMOTED] {source_url} is now VERIFIED.")
+                logger.info(f"[WIN] [SOURCE PROMOTED] {source_url} is now VERIFIED.")
 
             # Calculate Signal-to-Noise
             if meta["total_grains"] > 0:
@@ -103,5 +103,5 @@ class SourceAuditor(BaseCuriosityProbe):
 
     def settle(self, grain: Dict[str, Any]) -> bool:
         """Logic probes often settle by updating local state or bridge metadata."""
-        logger.info(f"📊 [SR-G UPDATE] {grain['source']} -> {grain['meta']['sr_g']} ($SR-G)")
+        logger.info(f"[VAL] [SR-G UPDATE] {grain['source']} -> {grain['meta']['sr_g']} ($SR-G)")
         return True

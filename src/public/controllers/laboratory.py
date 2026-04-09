@@ -72,10 +72,10 @@ class LaboratoryController:
         obstacles = []
         if status_code == 403:
             obstacles.append("CAPTCHA_OR_WAF_BLOCK")
-            logger.warning("⚠️ QUENCHED: Probe blocked by Captcha or WAF.")
+            logger.warning("[WAR] QUENCHED: Probe blocked by Captcha or WAF.")
         elif is_doc and content_len < 300:
             obstacles.append("PDF_EXTRACTION_FAILURE")
-            logger.warning("⚠️ PDF_FAIL: Minimal content extracted from document.")
+            logger.warning("[WAR] PDF_FAIL: Minimal content extracted from document.")
         
         # 3. Extraction/Distillation Phase
         logger.info("Step 2: Extracting (AI Distillation)...")

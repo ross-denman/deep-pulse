@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Deep Pulse — Local Scout (Manual Ingest)
+Deep Pulse - Local Scout (Manual Ingest)
 
 Specialized scout for local drive 'harvesting'.
 Allows human-in-the-loop manual injection of PDFs/Reports.

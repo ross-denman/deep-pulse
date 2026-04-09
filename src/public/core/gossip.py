@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-The Chronicle — Gossip Protocol
+The Chronicle - Gossip Protocol
 
 Implements libp2p Gossipsub for broadcasting Intelligence Proposals.
 Enforces privacy by using .onion addresses/temporary Multiaddresses.

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Deep Ledger — P2P Mesh & Sync Manager
+Deep Ledger - P2P Mesh & Sync Manager
 
 Implements the decentralization layer for the Deep Pulse Intelligence Mesh.
 Mimics OrbitDB and libp2p behavior using pure Python for maximum portability.
@@ -167,7 +167,7 @@ class P2PManager:
                 ledger = response.json()
                 for entry in ledger:
                     if entry["id"] == cid:
-                        logger.info(f"✨ Successfully pulled missing CID: {cid}")
+                        logger.info(f"[*] Successfully pulled missing CID: {cid}")
                         # In a real app, we would now 'ingest' it (append_entry)
                         # but we need to stay thread-safe and verify it.
                         break
@@ -203,7 +203,7 @@ class P2PManager:
         payload = {"source_url": source_url}
         msg = self._create_message("validation_inquiry", payload)
         
-        logger.info(f"🔍 [P2P] Broadcasting Validation Inquiry: {source_url}")
+        logger.info(f"[SRCH] [P2P] Broadcasting Validation Inquiry: {source_url}")
         
         async with httpx.AsyncClient(timeout=5.0) as client:
             for outpost in self.outposts.values():
@@ -230,7 +230,7 @@ class P2PManager:
                     valid = True
 
         if valid:
-            logger.info(f"✅ Grounding verified for {source_url}. Sending response.")
+            logger.info(f"[OK] Grounding verified for {source_url}. Sending response.")
             resp_payload = {"source_url": source_url, "valid": True}
             resp_msg = self._create_message("validation_response", resp_payload)
             # Find the sender in our peer map
@@ -257,7 +257,7 @@ class P2PManager:
         logger.info(f"⚖️  [QUORUM] {source_url} validation count: {count}/2")
         
         if count >= 2: # 2+1 Quorum (2 responses + self)
-            logger.info(f"🏆 [QUORUM REACHED] {source_url} is now VERIFIED by the mesh.")
+            logger.info(f"[WIN] [QUORUM REACHED] {source_url} is now VERIFIED by the mesh.")
             self._flip_source_status(source_url, "VERIFIED")
 
     def _flip_source_status(self, source_url: str, new_status: str):
@@ -328,7 +328,7 @@ class P2PManager:
         """Handle incoming 'Truth Pulse' gossip."""
         cid = msg.payload.get("cid")
         if cid and cid not in self.known_cids:
-            logger.info(f"✨ Received Alpha Alert for new CID: {cid}")
+            logger.info(f"[*] Received Alpha Alert for new CID: {cid}")
             self.known_cids.add(cid)
             # Re-gossip to other outposts (Gossip Protocol)
             await self.gossip_alpha_alert(cid)

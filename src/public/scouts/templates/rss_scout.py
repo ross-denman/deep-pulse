@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Deep Pulse — RSS Scout Template (Passive Gatherer)
+Deep Pulse - RSS Scout Template (Passive Gatherer)
 
 Specialized scout for feed-based discovery.
 Monitors RSS/Atom for new Intelligence Proposals.

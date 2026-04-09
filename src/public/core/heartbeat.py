@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Deep Pulse — Heartbeat Protocol (OCI Survival)
+Deep Pulse - Heartbeat Protocol (OCI Survival)
 
 Maintain real-time 'Gravity' on the Oracle Cloud instance to prevent idle-reclaim
 while verifying the outpost's sovereign identity via periodic synthetic pulses.
@@ -67,7 +67,7 @@ class HeartbeatManager:
 
     async def run_forever(self):
         """Start the infinite heartbeat loop."""
-        print(f"\n  📡 {C.BOLD}OCI HEARTBEAT ACTIVE{C.RESET}")
+        print(f"\n  [TX] {C.BOLD}OCI HEARTBEAT ACTIVE{C.RESET}")
         print(f"  {C.DIM}Interval: {self.interval // 60} minutes{C.RESET}")
         print(f"  {C.DIM}Log: {self.log_file}{C.RESET}")
         print(f"  {C.CYAN}Maintaining Gravity for Outpost {self.identity.outpost_id}...{C.RESET}\n")
@@ -94,7 +94,7 @@ class HeartbeatManager:
                 
                 # 5. Display Console Feedback
                 ts = datetime.now().strftime("%H:%M:%S")
-                print(f"  {C.GREEN}[{ts}]{C.RESET} ✨ Synthetic Pulse Calibrated: {seal[:16]}... {C.DIM}[Seal Verified]{C.RESET}")
+                print(f"  {C.GREEN}[{ts}]{C.RESET} [*] Synthetic Pulse Calibrated: {seal[:16]}... {C.DIM}[Seal Verified]{C.RESET}")
                 
             except Exception as e:
                 logger.error("Heartbeat error: %s", e)

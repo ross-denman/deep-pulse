@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-The Chronicle — Resource Metabolism (Grid Tracking)
+The Chronicle - Resource Metabolism (Grid Tracking)
 
 Tracks the 'Physiological Signals' of the regional infrastructure:
 - Power Consumption (MW)
