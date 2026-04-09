@@ -3,23 +3,17 @@
 
 The **Discovery Mesh** (Deep Pulse) is the public edge of the Sovereign Auditor framework. It is designed to run on local hardware (Desktop clones, Pi Zero 2 W) to harvest intelligence, participate in mesh consensus, and build reputation through the **Onboarding Sandbox**.
 
-## 🔑 Your Journey: From Provisional to Auditor
+## 🚀 Quick Start (Deployment)
 
-New nodes enter the mesh with **Provisional Status**. To protect the integrity of the Master Chronicle, you must first complete the **Auditor's Exam**.
+Deep Pulse is optimized for Docker and low-memory environments like the Pi Zero 2 W.
 
-1.  **Provisional Status**: Shadow-access to all local investigative tools (Neo4j, Briefings) but firewalled from global posting.
-2.  **The Training Board**: Complete 10 archival verification tasks to earn your first **10 Grains** and **+1.0 Reputation**.
-3.  **Promotion**: Automated promotion to **Auditor** unlocks the ability to "Sow" new inquiries and participate in global 2+1/3+1 triangulation.
-
-## 🚀 Installation (Clean Slate)
-
-### 1. Manual Requirements
-Ensure you have Python 3.10+ and the core dependencies installed:
+### 1. Clone the Outpost
 ```bash
-pip install -r requirements.txt
+git clone https://github.com/ross-denman/deep-pulse.git
+cd deep-pulse
 ```
 
-### 2. Docker Deployment (Recommended for Pi Zero 2 W)
+### 2. Docker Deployment (Recommended)
 The Outpost is containerized to ensure 256MB RAM safety and automatic recovery.
 ```bash
 # Build and launch the sentinel
@@ -29,14 +23,30 @@ docker-compose up -d
 docker-compose exec outpost python3 auditor_cli.py status
 ```
 
-### 3. Initialize Identity
+### 3. Manual Installation (Alternative)
+Ensure you have Python 3.10+ and the core dependencies installed:
+```bash
+pip install -r requirements.txt
+```
+
+## 🔑 Your Journey: From Provisional to Auditor
+
+New nodes enter the mesh with **Provisional Status**. To protect the integrity of the Master Chronicle, you must first complete the **Auditor's Exam**.
+
+1.  **Provisional Status**: Shadow-access to all local investigative tools (Neo4j, Briefings) but firewalled from global posting.
+2.  **The Training Board**: Complete 10 archival verification tasks to earn your first **10 Grains** and **+1.0 Reputation**.
+3.  **Promotion**: Automated promotion to **Auditor** unlocks the ability to "Sow" new inquiries and participate in global 2+1/3+1 triangulation.
+
+## 🛠️ Outpost Operations
+
+### 1. Initialize Identity
 Generate your Ed25519 Sovereign Identity. This is your "Seal" for all future discoveries.
 ```bash
 python3 src/public/core/identity_generator.py
 ```
 *(If using Docker: `docker-compose exec outpost python3 core/identity_generator.py`)*
 
-### 4. Check Status
+### 2. Check Status
 Verify your current rank and reputation:
 ```bash
 python3 src/public/auditor_cli.py status
