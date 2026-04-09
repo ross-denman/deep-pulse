@@ -18,7 +18,15 @@ from dotenv import load_dotenv
 from core.crypto import sign_data, verify_signature
 
 
-PROJECT_ROOT = Path(__file__).resolve().parent.parent
+# Robust PROJECT_ROOT calculation to handle flattened public repo vs nested private repo
+_current_file = Path(__file__).resolve()
+if "src" in _current_file.parts:
+    # soul-ledger: /src/public/core/identity.py -> 3 parents up to /src, then 1 more to root
+    PROJECT_ROOT = _current_file.parent.parent.parent.parent
+else:
+    # deep-pulse: /core/identity.py -> 2 parents up to root
+    PROJECT_ROOT = _current_file.parent.parent
+
 load_dotenv(PROJECT_ROOT / ".env")
 
 
