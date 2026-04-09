@@ -13,19 +13,30 @@ New nodes enter the mesh with **Provisional Status**. To protect the integrity o
 
 ## 🚀 Installation (Clean Slate)
 
-### 1. Requirements
+### 1. Manual Requirements
 Ensure you have Python 3.10+ and the core dependencies installed:
 ```bash
 pip install -r requirements.txt
 ```
 
-### 2. Initialize Identity
+### 2. Docker Deployment (Recommended for Pi Zero 2 W)
+The Outpost is containerized to ensure 256MB RAM safety and automatic recovery.
+```bash
+# Build and launch the sentinel
+docker-compose up -d
+
+# Verify operation
+docker-compose exec outpost python3 auditor_cli.py status
+```
+
+### 3. Initialize Identity
 Generate your Ed25519 Sovereign Identity. This is your "Seal" for all future discoveries.
 ```bash
 python3 src/public/core/identity_generator.py
 ```
+*(If using Docker: `docker-compose exec outpost python3 core/identity_generator.py`)*
 
-### 3. Check Status
+### 4. Check Status
 Verify your current rank and reputation:
 ```bash
 python3 src/public/auditor_cli.py status
