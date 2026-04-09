@@ -142,10 +142,10 @@ def write_env(private_key_hex: str, public_key_hex: str, probe_id: str) -> None:
 def main() -> None:
     """Bootstrap the node identity."""
     print()
-    print("  ╔══════════════════════════════════════════╗")
-    print("  ║   THE CHRONICLE — Identity Bootstrap     ║")
-    print("  ║   Generating Ed25519 Sovereign Identity   ║")
-    print("  ╚══════════════════════════════════════════╝")
+    print("  +------------------------------------------+")
+    print("  |   THE CHRONICLE - Identity Bootstrap     |")
+    print("  |   Generating Ed25519 Sovereign Identity  |")
+    print("  +------------------------------------------+")
     print()
 
     # Check if identity already exists
