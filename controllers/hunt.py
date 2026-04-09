@@ -2,10 +2,10 @@ import logging
 import asyncio
 import json
 from typing import Dict, Any, List
-from core.search import BraveSearchClient
-from scouts.templates.web_scout import WebScout
-from private.master_queue import MasterOutpostQueue
-from core.models import PeriodicalBrief
+from src.public.core.search import BraveSearchClient
+from src.public.scouts.templates.web_scout import WebScout
+from src.public.storage.queue import InquiryQueue
+from src.public.core.models import PeriodicalBrief
 
 logger = logging.getLogger("hunt_controller")
 
@@ -14,7 +14,7 @@ class HuntController:
     Coordinates Discovery (Brave Search) and Harvesting (Crawl4AI).
     Bridges the gap between a Truth Seed and a distilled Finding.
     """
-    def __init__(self, queue: MasterOutpostQueue, scout: WebScout):
+    def __init__(self, queue: InquiryQueue, scout: WebScout):
         self.queue = queue
         self.scout = scout
         self.search_client = BraveSearchClient()
