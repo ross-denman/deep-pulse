@@ -11,8 +11,15 @@ import sys
 import subprocess
 from pathlib import Path
 
-# Ensure project root is on path
-PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
+# Robust PROJECT_ROOT calculation to handle flattened public repo vs nested private repo
+_current_file = Path(__file__).resolve()
+if "src" in _current_file.parts:
+    # soul-ledger: /src/public/auditor_cli.py -> 2 parents up to /src, then 1 more to root
+    PROJECT_ROOT = _current_file.parent.parent.parent
+else:
+    # deep-pulse: /auditor_cli.py -> 1 parent up to root
+    PROJECT_ROOT = _current_file.parent
+
 sys.path.insert(0, str(PROJECT_ROOT))
 
 from src.public.core.identity import load_identity
@@ -33,7 +40,7 @@ class C:
         "\033[95m", "\033[94m", "\033[96m", "\033[92m", "\033[93m", "\033[91m", "\033[1m", "\033[2m", "\033[0m"
     )
 
-BANNER = f"{C.CYAN}{C.BOLD}═══ The Chronicle: Auditor CLI ═══{C.RESET}"
+BANNER = f"{C.CYAN}{C.BOLD}--- The Chronicle: Auditor CLI ---{C.RESET}"
 
 class Bridge:
     def __init__(self):
