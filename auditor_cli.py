@@ -189,7 +189,7 @@ class Bridge:
         await self.inquiry.process_heartbeat(args.interval or 30)
 
     def cmd_onboard(self, args):
-        from private.agents.onboarding import SocraticOnboarder
+        from agents.socratic_onboarder import SocraticOnboarder
         onboarder = SocraticOnboarder()
         asyncio.run(onboarder.run_cli_session())
 
