@@ -1,10 +1,9 @@
 # 📡 Sovereign Outpost — Discovery Mesh Dockerfile
 # Lean Alpine Build optimized for Pi Zero 2 W (512MB RAM)
-ENV LANG C.UTF-8
-ENV LC_ALL C.UTF-8
-
 # --- Stage 1: Build Dependencies ---
 FROM python:3.11-alpine as builder
+ENV LANG C.UTF-8
+ENV LC_ALL C.UTF-8
 
 RUN apk add --no-cache \
     g++ \
@@ -21,6 +20,8 @@ RUN pip install --prefix=/install --no-cache-dir -r requirements.txt --break-sys
 
 # --- Stage 2: Runtime Image ---
 FROM python:3.11-alpine
+ENV LANG C.UTF-8
+ENV LC_ALL C.UTF-8
 
 WORKDIR /app
 
