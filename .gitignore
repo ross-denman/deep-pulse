@@ -1,4 +1,4 @@
-# Sovereign Notary — Private Ledger (Soul)
+# Sovereign Auditor — Private Ledger (Soul)
 # DO NOT PUSH TO PUBLIC
 .venv/
 __pycache__/
@@ -10,3 +10,13 @@ node.key
 *.log
 data/history/
 data/cache/
+
+# --- Local Artifacts & Backups ---
+**/harvest/backups/
+**/harvest/peers.json
+deep-ledger/neo4j-data/
+deep-ledger/neo4j-logs/
+*.tar.gz
+*.hex
+*.vault
+node_modules/

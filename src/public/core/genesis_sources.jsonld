@@ -1,0 +1,76 @@
+[
+  {
+    "domain": "mil",
+    "tier": "Primary",
+    "weight": 1.0,
+    "is_institutional": true,
+    "is_notary_vetted": true,
+    "description": "Defense/Military Domains"
+  },
+  {
+    "domain": "ac.uk",
+    "tier": "Primary",
+    "weight": 1.0,
+    "is_institutional": true,
+    "is_notary_vetted": true,
+    "description": "UK Academic Research Institutions"
+  },
+  {
+    "domain": "gov",
+    "tier": "Primary",
+    "weight": 1.0,
+    "is_institutional": true,
+    "is_notary_vetted": true,
+    "description": "General Government Domains"
+  },
+  {
+    "domain": "edu",
+    "tier": "Primary",
+    "weight": 1.0,
+    "is_institutional": true,
+    "is_notary_vetted": false,
+    "description": "Academic Research Institutions"
+  },
+  {
+    "domain": "doi.org",
+    "tier": "Primary",
+    "weight": 1.0,
+    "is_institutional": true,
+    "is_notary_vetted": true,
+    "description": "Digital Object Identifiers (Peer-Reviewed Research)"
+  },
+  {
+    "domain": "reuters.com",
+    "tier": "Secondary",
+    "weight": 0.7,
+    "is_institutional": false,
+    "is_notary_vetted": true,
+    "description": "Verified Major Press"
+  },
+  {
+    "domain": "apnews.com",
+    "tier": "Secondary",
+    "weight": 0.7,
+    "is_institutional": false,
+    "is_notary_vetted": true,
+    "description": "Verified Major Press"
+  },
+  {
+    "domain": "x.com",
+    "tier": "Ephemeral",
+    "weight": 0.1,
+    "is_institutional": false,
+    "is_notary_vetted": false,
+    "is_volatile": true,
+    "description": "Social Media (High Noise)"
+  },
+  {
+    "domain": "tiktok.com",
+    "tier": "Ephemeral",
+    "weight": 0.1,
+    "is_institutional": false,
+    "is_notary_vetted": false,
+    "is_volatile": true,
+    "description": "Social Media (High Noise)"
+  }
+]

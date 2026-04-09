@@ -1,0 +1,24 @@
+{
+    "name": "Institutional RSS Sifter",
+    "description": "Monitors government and real estate feeds for infrastructure and zoning changes.",
+    "category": "surface",
+    "feeds": [
+        "https://www.in.gov/idem/newsroom/news-releases/feed/",
+        "https://www.boonecounty.in.gov/feed/",
+        "https://www.ibj.com/rss/realestate"
+    ],
+    "keywords": [
+        "infrastructure",
+        "expansion",
+        "utility",
+        "variance",
+        "permit",
+        "meta",
+        "lilly",
+        "boone",
+        "water",
+        "zoning",
+        "development"
+    ],
+    "gravity_default": 5.0
+}

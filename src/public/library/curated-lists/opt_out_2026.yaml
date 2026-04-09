@@ -1,0 +1,15 @@
+id: opt_out_2026
+name: Opt-Out Guide 2026
+curator: thumpersecure
+description: Essential for keeping the navigators identity clean.
+source: https://github.com/thumpersecure/opt-out-manual-2026
+version: "2026.4"
+tags:
+  - Privacy
+  - Identity
+  - Opt-Out
+steps:
+  - Data Broker Removal
+  - Search Engine De-indexing
+  - Credit Bureau Freezout
+  - Public Record Scrubbing
