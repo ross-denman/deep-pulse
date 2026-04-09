@@ -19,7 +19,15 @@ from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
 from cryptography.hazmat.primitives import serialization
 
 
-PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
+# Robust PROJECT_ROOT calculation to handle flattened public repo vs nested private repo
+_current_file = Path(__file__).resolve()
+if "src" in _current_file.parts:
+    # soul-ledger: /src/public/core/identity_generator.py -> 3 parents up to /src, then 1 more to root
+    PROJECT_ROOT = _current_file.parent.parent.parent.parent
+else:
+    # deep-pulse: /core/identity_generator.py -> 2 parents up to root
+    PROJECT_ROOT = _current_file.parent.parent
+
 ENV_FILE = PROJECT_ROOT / ".env"
 
 
@@ -86,8 +94,10 @@ def write_env(private_key_hex: str, public_key_hex: str, probe_id: str) -> None:
     env_lines["OUTPOST_ID"] = probe_id
 
     # Set defaults if not already present
-    env_lines.setdefault("OPENROUTER_API_KEY", "")
-    env_lines.setdefault("MODEL", "openrouter/free")
+    env_lines.setdefault("LLM_API_KEY", "")
+    env_lines.setdefault("LLM_BASE_URL", "https://openrouter.ai/api/v1")
+    env_lines.setdefault("LLM_MODEL", "openrouter/free")
+    env_lines.setdefault("BRAVE_API_KEY", "")
     env_lines.setdefault("NEO4J_URI", "bolt://localhost:7687")
     env_lines.setdefault("NEO4J_USER", "nexus_operator")
     env_lines.setdefault("NEO4J_PASSWORD", "deep-ledger-secret")
@@ -103,10 +113,14 @@ def write_env(private_key_hex: str, public_key_hex: str, probe_id: str) -> None:
         f.write(f"OUTPOST_KEY={env_lines.pop('OUTPOST_KEY')}\n")
         f.write(f"OUTPOST_PUBLIC_KEY={env_lines.pop('OUTPOST_PUBLIC_KEY')}\n")
         f.write(f"OUTPOST_ID={env_lines.pop('OUTPOST_ID')}\n\n")
-        f.write("# --- LLM Provider ---\n")
-        f.write(f"OPENROUTER_API_KEY={env_lines.pop('OPENROUTER_API_KEY', '')}\n")
-        f.write(f"MODEL={env_lines.pop('MODEL', 'openrouter/free')}\n\n")
-        fgetc = env_lines.pop # Shorthand
+        f.write("# --- Core Intelligence --- \n")
+        f.write(f"LLM_API_KEY={env_lines.pop('LLM_API_KEY', '')}\n")
+        f.write(f"LLM_BASE_URL={env_lines.pop('LLM_BASE_URL', 'https://openrouter.ai/api/v1')}\n")
+        f.write(f"LLM_MODEL={env_lines.pop('LLM_MODEL', 'openrouter/free')}\n\n")
+
+        f.write("# --- Search Engine (Brave) ---\n")
+        f.write(f"BRAVE_API_KEY={env_lines.pop('BRAVE_API_KEY', '')}\n\n")
+
         f.write("# --- Neo4j (Notary Only) ---\n")
         f.write(f"NEO4J_URI={env_lines.pop('NEO4J_URI', 'bolt://localhost:7687')}\n")
         f.write(f"NEO4J_USER={env_lines.pop('NEO4J_USER', 'nexus_operator')}\n")
