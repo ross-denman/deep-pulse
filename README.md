@@ -5,7 +5,7 @@ The **Discovery Mesh** (Deep Pulse) is the public edge of the Sovereign Auditor 
 
 ## 🚀 Quick Start (Deployment)
 
-Deep Pulse is optimized for Docker and low-memory environments like the Pi Zero 2 W.
+Deep Pulse is optimized for Docker and low-memory environments like the Pi Zero 2 W. Ensure you create a local configuration by copying the boilerplate: `cp .env.example .env`.
 
 ### 1. Clone the Outpost
 ```bash
