@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Deep Ledger — Inquiry Controller (Policy Layer)
+Deep Ledger - Inquiry Controller (Policy Layer)
 
 Orchestrates the lifecycle of an inquiry: Discovery -> Claim -> Evidence -> Submission.
 Acts as a high-level bridge between the CLI interface and low-level mechanisms.

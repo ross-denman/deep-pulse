@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Deep Ledger — Consensus Controller (Policy Layer)
+Deep Ledger - Consensus Controller (Policy Layer)
 
 Orchestrates the validation of Ledger entries and the 2+1 Quorum voting logic.
 Decouples consensus policy from mechanical signature verification.
@@ -87,7 +87,7 @@ class ConsensusController:
             logger.info(f"Vote cast. Current weight: {weight}/{self.threshold}. Status: {status}")
             
             if status == "verified" or weight >= self.threshold:
-                logger.info(f"✨ CONSENSUS REACHED for {cid}.")
+                logger.info(f"[*] CONSENSUS REACHED for {cid}.")
                 
             return res
         except Exception as e:
@@ -115,7 +115,7 @@ class ConsensusController:
                         # Simplified contradiction check for MVP: same subject, different data
                         if entry.get("data", {}).get("title") == new_entry.get("data", {}).get("title"):
                             if entry.get("data", {}).get("payload") != new_entry.get("data", {}).get("payload"):
-                                logger.warning(f"⚠️ EPISTEMIC CONFLICT: Social source contradiction against Institutional Anchor for {entry['id']}")
+                                logger.warning(f"[WAR] EPISTEMIC CONFLICT: Social source contradiction against Institutional Anchor for {entry['id']}")
                                 return self.generate_conflict_event(entry, new_entry)
         return None
 

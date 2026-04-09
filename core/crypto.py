@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Deep Ledger — Cryptographic Mechanism Module
+Deep Ledger - Cryptographic Mechanism Module
 
 Low-level utilities for SHA-256 hashing and Ed25519 signing.
 Decoupled from high-level Identity models to allow lightweight use.

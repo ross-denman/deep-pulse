@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Deep Pulse — Base Scout (AutoDream Curiosity Bot)
+Deep Pulse - Base Scout (AutoDream Curiosity Bot)
 
 The foundational class for autonomous researchers.
 Implements the Curiosity Bot loop, Surprise Metric, and 
@@ -164,7 +164,7 @@ class BaseScout(abc.ABC):
                         logger.error(f"[DEC SYSTEM] Schema Gate failed: {e}")
             
             if score >= 0.8: # Threshold for success
-                logger.info(f"✅ High-Signal discovery confirmed: {signal}")
+                logger.info(f"[OK] High-Signal discovery confirmed: {signal}")
                 self.stats["successes"] += 1
                 from urllib.parse import urlparse
                 path = urlparse(target_url).path.rstrip("/")

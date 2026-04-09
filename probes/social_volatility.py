@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Deep Ledger — Social Volatility Probe (Skeleton)
+Deep Ledger - Social Volatility Probe (Skeleton)
 
 Monitors 'Keyword Velocity' on social platforms. 
 Triggers a 'Verification Sweep' inquiry if noise spikes exceed thresholds.
@@ -23,7 +23,7 @@ class SocialVolatilityProbe:
 
     async def scan_velocity(self) -> Dict[str, float]:
         """Simulate scanning social media for keyword velocity."""
-        logger.info("📡 Scanning Social Platforms (X, TikTok) for 'Hysteria' markers...")
+        logger.info("[TX] Scanning Social Platforms (X, TikTok) for 'Hysteria' markers...")
         
         # Simulated velocity reporting
         velocity_map = {kw: round(random.uniform(0.1, 1.0), 2) for kw in self.keywords}

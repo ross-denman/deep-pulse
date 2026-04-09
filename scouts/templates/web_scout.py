@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Deep Pulse — Web Scout (Active Researcher)
+Deep Pulse - Web Scout (Active Researcher)
 
 Specialized scout for web-based discovery.
 Uses Crawl4AI + Adaptive RAG cost shield.

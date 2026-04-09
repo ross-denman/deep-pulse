@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-The Chronicle — Identity Module
+The Chronicle - Identity Module
 
 Loads the Ed25519 identity from .env and provides signing/verification helpers.
 """

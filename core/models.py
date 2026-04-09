@@ -1,18 +1,18 @@
 #!/usr/bin/env python3
 """
-The Chronicle — Intelligence Gate (Pydantic Schemas)
+The Chronicle - Intelligence Gate (Pydantic Schemas)
 
 All Probe outputs MUST validate against these models before touching
 the Public Chronicle or the Knowledge Graph. This is the "Forced Verification"
-layer — if a Probe returns data that doesn't match the schema, the
+layer - if a Probe returns data that doesn't match the schema, the
 Public Chronicle rejects it before it can ever be sealed or gossiped.
 
 Models:
-    ExtractedEntity   — A named entity from scouted content.
-    RelationshipEdge  — A suggested link between two entities.
-    LEAPDistrictIntel — Typed payload for the LEAP perimeter.
-    ProbeResult       — Top-level wrapper for all probe output.
-    ChronicleEntryPayload — Validated bundle for create_entry().
+    ExtractedEntity   - A named entity from scouted content.
+    RelationshipEdge  - A suggested link between two entities.
+    LEAPDistrictIntel - Typed payload for the LEAP perimeter.
+    ProbeResult       - Top-level wrapper for all probe output.
+    ChronicleEntryPayload - Validated bundle for create_entry().
 """
 
 from __future__ import annotations
@@ -109,7 +109,7 @@ class LEAPDistrictIntel(BaseModel):
     Replaces the raw dict previously returned by LeapScout._extract_intelligence().
 
     Attributes:
-        type: Always "LEAPDistrictIntel" — used for discriminated unions.
+        type: Always "LEAPDistrictIntel" - used for discriminated unions.
         title: Human-readable title of the intelligence.
         target_id: The Probe target identifier (e.g., "iurc_search").
         keywords_matched: List of keywords that matched in the content.
@@ -130,7 +130,7 @@ class LEAPDistrictIntel(BaseModel):
     total_keywords: int = Field(ge=0)
     content_length: int = Field(ge=0)
     snippets: list[str] = Field(default_factory=list, max_length=10)
-    perimeter: str = "Meta Infrastructure — LEAP District"
+    perimeter: str = "Meta Infrastructure - LEAP District"
     region: str = "Lebanon, Indiana (Boone County)"
     assessment: str = ""
 

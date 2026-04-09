@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-The Chronicle — Probe Seal Generator
+The Chronicle - Probe Seal Generator
 
 Generates a sovereign Ed25519 "Seal" (keypair) for this Probe.
 The public key derivation becomes the Probe ID.
@@ -106,7 +106,7 @@ def write_env(private_key_hex: str, public_key_hex: str, probe_id: str) -> None:
     # Write back
     with open(ENV_FILE, "w") as f:
         f.write("# ====================================\n")
-        f.write("# The Chronicle — Probe Configuration\n")
+        f.write("# The Chronicle - Probe Configuration\n")
         f.write("# THIS FILE IS GIT-IGNORED. DO NOT COMMIT.\n")
         f.write("# ====================================\n\n")
         f.write("# --- Sovereign Seal (Ed25519) ---\n")
@@ -136,7 +136,7 @@ def write_env(private_key_hex: str, public_key_hex: str, probe_id: str) -> None:
             for key, value in env_lines.items():
                 f.write(f"{key}={value}\n")
 
-    print(f"  ✅ .env written to {ENV_FILE}")
+    print(f"  [OK] .env written to {ENV_FILE}")
 
 
 def main() -> None:
@@ -156,14 +156,14 @@ def main() -> None:
             # Extract existing key to check if it's populated
             for line in content.splitlines():
                 if line.startswith("OUTPOST_KEY=") and len(line.split("=", 1)[1].strip()) > 0:
-                    print("  ⚠️  Sovereign Seal already exists in .env.")
+                    print("  [WARNING] Sovereign Seal already exists in .env.")
                     print("  To regenerate, delete the OUTPOST_KEY line from .env first.")
                     # Still print the existing identity
                     for line2 in content.splitlines():
                         if line2.startswith("OUTPOST_ID="):
-                            print(f"  🔑 Existing Outpost ID: {line2.split('=', 1)[1]}")
+                            print(f"  [ID] Existing Outpost ID: {line2.split('=', 1)[1]}")
                         if line2.startswith("OUTPOST_PUBLIC_KEY="):
-                            print(f"  🌐 Public Key: {line2.split('=', 1)[1][:32]}...")
+                            print(f"  [PUB] Public Key: {line2.split('=', 1)[1][:32]}...")
                     return
 
     public_key_hex, private_key_hex = generate_keypair()
@@ -171,12 +171,12 @@ def main() -> None:
 
     write_env(private_key_hex, public_key_hex, probe_id)
 
-    print(f"  🔑 Probe ID:    {probe_id}")
-    print(f"  🌐 Public Key:  {public_key_hex[:32]}...")
-    print(f"  🔒 Private Seal:[REDACTED — stored in .env]")
+    print(f"  [ID] Probe ID:    {probe_id}")
+    print(f"  [PUB] Public Key:  {public_key_hex[:32]}...")
+    print(f"  [SEC] Private Seal:[REDACTED - stored in .env]")
     print()
-    print("  ✅ Genesis seal created. You are now a Mesh Probe.")
-    print("  📜 This seal will sign your entries in **The Chronicle**.")
+    print("  [OK] Genesis seal created. You are now a Mesh Probe.")
+    print("  [DOC] This seal will sign your entries in **The Chronicle**.")
     print()
 
 

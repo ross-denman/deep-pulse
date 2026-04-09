@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-The Chronicle — Meshtastic Heartbeat (radio.py)
+The Chronicle - Meshtastic Heartbeat (radio.py)
 
 The "Silent Pulse": Low-bandwidth radio broadcast logic for 
 sending truth summaries over LoRa/Meshtastic.
@@ -64,9 +64,9 @@ class SilentPulse:
     def broadcast_mock(self, data: bytes):
         """Mock Meshtastic broadcast."""
         encoded = base64.b64encode(data).decode('utf-8')
-        logger.info(f"📡 BROADCASTING SILENT PULSE [LoRa]: {encoded}")
+        logger.info(f"[TX] BROADCASTING SILENT PULSE [LoRa]: {encoded}")
         print(f"\n{'-'*40}")
-        print(f"📡 RADIO HEARTBEAT (Silent Pulse)")
+        print(f"[TX] RADIO HEARTBEAT (Silent Pulse)")
         print(f"Payload: {encoded}")
         print(f"Size: {len(data)} bytes")
         print(f"{'-'*40}\n")

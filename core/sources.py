@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Deep Ledger — Source Validator (The Epistemic Firewall)
+Deep Ledger - Source Validator (The Epistemic Firewall)
 
 Implements logic to classify and weight data sources based on the 
 genesis_sources.jsonld whitelist.

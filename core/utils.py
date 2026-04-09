@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-The Chronicle — Core Utilities
+The Chronicle - Core Utilities
 
 Common helper functions for the discovery and intelligence swarm.
 """

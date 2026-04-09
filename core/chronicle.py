@@ -27,7 +27,7 @@ logger = logging.getLogger(__name__)
 PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent.parent.parent
 CHRONICLE_FILE = PROJECT_ROOT / "the-chronicle" / "harvest" / "chronicle.jsonld"
 
-# Sovereign Notary — Genesis Key v1.2
+# Sovereign Notary - Genesis Key v1.2
 CHRONICLE_HEADER = {
     "@context": "https://schema.org",
     "type": "ChronicleAnchor",

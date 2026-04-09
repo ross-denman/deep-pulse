@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Deep Ledger — Anomaly Dashboard (dashboard.py)
+Deep Ledger - Anomaly Dashboard (dashboard.py)
 
 A premium, web-based Regional Health Monitor UI for 
 visualizing Truth Pulses, Swarm performance, and 

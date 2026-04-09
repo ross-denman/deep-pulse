@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Deep Ledger — Archive Controller (Policy Layer)
+Deep Ledger - Archive Controller (Policy Layer)
 
 Handles the synchronization of the immutable chronicle with the Knowledge Graph (KùzuDB/Neo4j).
 Manages the Resurrection Layer (rebuild) and snapshot exports.

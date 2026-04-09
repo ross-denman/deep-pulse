@@ -36,7 +36,7 @@ def get_initial_seeds():
 
 def run_sower_pass(seed_entities: list = None):
     """Executes the Multi-Stage Investigative Pipeline."""
-    logger.info("📡 [BLOODHOUND SOWER] 📡 Initiating Recursive Pipeline...")
+    logger.info("[TX] [BLOODHOUND SOWER] [TX] Initiating Recursive Pipeline...")
     
     try:
         identity = load_identity()

@@ -1,1 +1,1 @@
-# The Chronicle — Core Package
+# The Chronicle - Core Package

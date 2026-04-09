@@ -98,7 +98,7 @@ class RSSSifter(BaseCuriosityProbe):
             full_text = (title + " " + content).lower()
 
             if any(word.lower() in full_text for word in keywords):
-                logger.info(f"✨ [GRAIN DETECTED] {title[:60]}...")
+                logger.info(f"[*] [GRAIN DETECTED] {title[:60]}...")
                 grain = {
                     "id": entry_id,
                     "title": title,

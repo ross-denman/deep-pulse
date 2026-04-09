@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-The Chronicle — Shared Bridge Contracts
+The Chronicle - Shared Bridge Contracts
 Phase 5: The Incentive Handshake
 
 Defines the cryptographic and state-based contracts for the mesh.

@@ -1,5 +1,5 @@
 """
-The Chronicle — Command Bridge (Lightweight Dispatcher)
+The Chronicle - Command Bridge (Lightweight Dispatcher)
 Phase 4 Refactor: Minimalist CLI Router
 """
 
@@ -115,7 +115,7 @@ class Bridge:
         # Example: bridge submit inq_123 '{"data": "val"}' source.com
         payload = json.loads(args.payload)
         res = self.inquiry.submit_evidence(args.id, payload, args.source)
-        if res: print(f"{C.GREEN}✅ Pulse {res.get('id', 'unknown')} submitted.{C.RESET}")
+        if res: print(f"{C.GREEN}[OK] Pulse {res.get('id', 'unknown')} submitted.{C.RESET}")
 
     def cmd_train(self, args):
         """Isolated training submission for Seed Grains and Reputation."""
@@ -130,12 +130,12 @@ class Bridge:
             resp = requests.post(f"{self.client.base_url}/api/v1/training/submit", json=payload)
             data = resp.json()
             if resp.status_code == 200:
-                print(f"{C.GREEN}✅ {data['message']}{C.RESET}")
+                print(f"{C.GREEN}[OK] {data['message']}{C.RESET}")
                 print(f"  New Reputation: {data['current_rep']}")
             else:
                 # Handle error responses which might be dict or string
                 msg = data.get("message", data) if isinstance(data, dict) else data
-                print(f"{C.RED}❌ {msg}{C.RESET}")
+                print(f"{C.RED}[ERR] {msg}{C.RESET}")
                 if isinstance(data, dict) and "hint" in data:
                     print(f"  {C.DIM}Hint: {data['hint']}{C.RESET}")
         except Exception as e:
@@ -144,11 +144,11 @@ class Bridge:
     def cmd_sync(self, args):
         print(f"{C.CYAN}Synchronizing to Knowledge Graph...{C.RESET}")
         synced, verified, total = asyncio.run(self.archive.sync_to_graph())
-        print(f"{C.GREEN}✅ Sync Complete: {synced}/{total} entries internalized.{C.RESET}")
+        print(f"{C.GREEN}[OK] Sync Complete: {synced}/{total} entries internalized.{C.RESET}")
 
     def cmd_test_notary_skepticism(self, args):
         """End-to-end validation of the Epistemic Firewall."""
-        print(f"{C.BOLD}═══ Validating Notary Skepticism Layer ═══{C.RESET}")
+        print(f"{C.BOLD}--- Validating Notary Skepticism Layer ---{C.RESET}")
         target = args.target
         print(f"Target Source: {C.CYAN}{target}{C.RESET}")
         
@@ -158,7 +158,7 @@ class Bridge:
         res = self.inquiry.submit_evidence("test_inquiry", payload, target)
         
         if not res:
-            print(f"{C.RED}❌ Failed to communicate with Bridge Server.{C.RESET}")
+            print(f"{C.RED}[ERR] Failed to communicate with Bridge Server.{C.RESET}")
             return
 
         cid = res.get("id")
@@ -177,11 +177,11 @@ class Bridge:
         print(f"  Notary Vetted:        {vetted}")
 
         if is_volatile and status == "volatile":
-            print(f"\n{C.GREEN}✅ TEST PASS: Social source correctly tagged as ST_VOLATILE.{C.RESET}")
+            print(f"\n{C.GREEN}[OK] TEST PASS: Social source correctly tagged as ST_VOLATILE.{C.RESET}")
         elif institutional and status == "speculative":
-            print(f"\n{C.GREEN}✅ TEST PASS: Institutional source correctly staged as SPECULATIVE.{C.RESET}")
+            print(f"\n{C.GREEN}[OK] TEST PASS: Institutional source correctly staged as SPECULATIVE.{C.RESET}")
         else:
-            print(f"\n{C.YELLOW}⚠️  Manual Verification Required for status: {status}{C.RESET}")
+            print(f"\n{C.YELLOW}[WAR]  Manual Verification Required for status: {status}{C.RESET}")
 
         print(f"\n{C.DIM}Check chronicle.jsonld for immutable ConflictEvents if social override was attempted.{C.RESET}")
 
@@ -204,14 +204,14 @@ class Bridge:
         reporter = ReporterAgent()
         md = asyncio.run(reporter.generate_markdown_report(digest))
         path = reporter.save_report(md)
-        print(f"{C.GREEN}✅ Brief saved to: {path}{C.RESET}")
+        print(f"{C.GREEN}[OK] Brief saved to: {path}{C.RESET}")
 
     def cmd_agenda(self, args):
         from src.private.controllers.agenda import AgendaController
         controller = AgendaController()
         if args.seed:
             count = controller.seed_agenda_grains()
-            print(f"{C.GREEN}✅ Generated {count} Truth Seeds from your interest profile.{C.RESET}")
+            print(f"{C.GREEN}[OK] Generated {count} Truth Seeds from your interest profile.{C.RESET}")
         elif args.approve:
             controller.propose_expansion(args.approve)
 
@@ -229,7 +229,7 @@ class Bridge:
             asyncio.run(controller.process_seed(args.id))
         else:
             asyncio.run(controller.autonomous_hunt())
-        print(f"{C.GREEN}✅ Hunt Complete.{C.RESET}")
+        print(f"{C.GREEN}[OK] Hunt Complete.{C.RESET}")
 
     def cmd_probe(self, args):
         if args.action == "probe":
@@ -247,7 +247,7 @@ class Bridge:
                 print(f"  {C.YELLOW}Obstacles:{C.RESET}   {', '.join(report['obstacles'])}")
             
             print(f"  Findings:    {C.DIM}{report['findings_summary']}{C.RESET}")
-            print(f"\n{C.GREEN}✅ Lab simulation complete.{C.RESET}")
+            print(f"\n{C.GREEN}[OK] Lab simulation complete.{C.RESET}")
 
     def cmd_export(self, args):
         print(f"{C.CYAN}Generating Sealed Audit Package (.tar.gz)...{C.RESET}")
@@ -255,9 +255,9 @@ class Bridge:
         exporter = ExportController(PROJECT_ROOT)
         path = asyncio.run(exporter.generate_package(cid=args.cid, tag=args.tag))
         if path:
-            print(f"{C.GREEN}✅ Sealed Audit Package saved to: {path}{C.RESET}")
+            print(f"{C.GREEN}[OK] Sealed Audit Package saved to: {path}{C.RESET}")
         else:
-            print(f"{C.RED}❌ Export failed.{C.RESET}")
+            print(f"{C.RED}[ERR] Export failed.{C.RESET}")
 
     def cmd_daemon(self, args):
         if args.action == "start":

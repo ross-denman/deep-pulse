@@ -1,5 +1,5 @@
 """
-The Chronicle — Reputation Service (REP-G Protocol)
+The Chronicle - Reputation Service (REP-G Protocol)
 
 Manages the Reputation-as-Gateway system. Each Probe's REP score determines
 its access tier to the Knowledge Graph and mesh resources.
@@ -10,9 +10,9 @@ This is the "Accountant" side of the Truth Economy:
 - Manages Grains earned through settling and discovery
 
 Tiers:
-    Tier 0 (Lurker):         REP 0-99     — Rate-limited, delayed/summarized data.
-    Tier 1 (Probe):          REP 100-499  — Real-time alerts + Knowledge Graph.
-    Tier 2 (Auditor):         REP 500+     — Central Brain + consensus influence.
+    Tier 0 (Lurker):         REP 0-99     - Rate-limited, delayed/summarized data.
+    Tier 1 (Probe):          REP 100-499  - Real-time alerts + Knowledge Graph.
+    Tier 2 (Auditor):         REP 500+     - Central Brain + consensus influence.
 """
 
 import logging
@@ -70,7 +70,7 @@ REP_PENALTIES = {
     "poison_pill": -200,    # Intentional misinformation
     "lazy_verification": -50,  # Low-effort or incorrect verification
     "spam": -25,            # Submitting duplicate or low-quality entries
-    "slash": 0,             # Dynamic — calculated from staked amount
+    "slash": 0,             # Dynamic - calculated from staked amount
 }
 
 # Staking: percentage of current REP required to verify a claim
@@ -560,7 +560,7 @@ class ReputationService:
         outpost.apply_event(event)
 
         logger.warning(
-            "🛑 NOISE PENALTY: %d REP from %s for '%s' (Strike %d)",
+            "[HALT] NOISE PENALTY: %d REP from %s for '%s' (Strike %d)",
             points, outpost_id, reason, strike_count + 1
         )
         return outpost.score
