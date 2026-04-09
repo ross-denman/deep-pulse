@@ -1,0 +1,10 @@
+{
+  "scents": {
+    "ghalibaf": {
+      "owner_id": "AUDITOR_TEST",
+      "budget": 50,
+      "active": true,
+      "created_at": "2026-04-09T17:05:53.334287+00:00"
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "outposts": {
+    "TREASURY": {
+      "public_key_hex": "SYSTEM",
+      "score": 2000,
+      "grain_balance": 25000,
+      "liveness_score": 1.0,
+      "tier": 3
+    },
+    "AUDITOR_TEST": {
+      "public_key_hex": "KEY_TEST",
+      "score": 0,
+      "grain_balance": 80,
+      "liveness_score": 1.0,
+      "tier": 0
+    },
+    "VERIFY_TEST": {
+      "public_key_hex": "VERIFY_KEY_HEX",
+      "score": 1.0,
+      "grain_balance": 35,
+      "liveness_score": 1.0,
+      "tier": 2
+    }
+  },
+  "sources": {}
+}
