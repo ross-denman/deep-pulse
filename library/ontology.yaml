@@ -1,0 +1,43 @@
+# Deep Pulse — Ontology Map
+# Maps Detected Keywords -> Sensor Triggers -> Primary API/Sources
+
+categories:
+  - keywords: ["radiation", "nuclear", "isotope"]
+    trigger: "Gamma/Beta Sieve"
+    sources: ["EPA RadNet", "CTBTO Radionuclide"]
+    sensor_module: "gamma_sieve"
+
+  - keywords: ["strange plane", "military flight"]
+    trigger: "Transponder Audit"
+    sources: ["ADS-B Exchange", "US Mint Aviation"]
+    sensor_module: "transponder_audit"
+    
+  - keywords: ["infrastructure", "construction"]
+    trigger: "Change Detection"
+    sources: ["NASA Earthdata", "Sentinel-2", "FlyPix AI"]
+    sensor_module: "change_detection"
+    
+  - keywords: ["flood", "water levels", "bridge"]
+    trigger: "Hydro-Sensor"
+    sources: ["USGS WaterWatch", "USGS RTFI"]
+    sensor_module: "hydro_sensor"
+
+  - keywords: ["gold", "commodities", "prices"]
+    trigger: "Market Pulse"
+    sources: ["LBMA", "CME Pink Sheet", "World Bank Pink Sheet"]
+    sensor_module: "market_pulse"
+
+  - keywords: ["vessel", "maritime", "ghost ship"]
+    trigger: "AIS Audit"
+    sources: ["MarineTraffic", "VesselFinder", "Maritime Database"]
+    sensor_module: "ais_audit"
+
+  - keywords: ["air quality", "pollution"]
+    trigger: "Atmospheric Pulse"
+    sources: ["Google Maps Air Quality API", "Health Canada FPS"]
+    sensor_module: "air_quality"
+
+  - keywords: ["legal", "pacer", "fdic", "insolvency"]
+    trigger: "Institutional Oversight"
+    sources: ["PACER", "FDIC", "World Bank"]
+    sensor_module: "institutional_oversight"

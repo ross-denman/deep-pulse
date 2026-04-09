@@ -1,0 +1,15 @@
+id: osint_tools
+name: OSINT-Projects-and-Tools
+curator: jwbizz08
+description: Best for automation scripts and visualization dashboards.
+source: https://github.com/jwbizz08/OSINT-Projects-and-Tools
+version: "2026.2"
+tags:
+  - Automation
+  - Visualization
+  - Dashboards
+projects:
+  - Data Processing Pipelines
+  - Node Visualization Engines
+  - Automated FOIA Portals
+  - Real-time Alerting Systems
