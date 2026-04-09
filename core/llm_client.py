@@ -26,7 +26,9 @@ def get_llm():
         base_url=base_url,
         model=model,
         temperature=0.3,
-        default_headers=default_headers
+        default_headers=default_headers,
+        timeout=15.0, # 15s timeout to prevent hanging on local Ollama failure
+        max_retries=1
     )
 
 # Singleton instance for the session

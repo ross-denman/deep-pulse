@@ -12,6 +12,10 @@ from langgraph.graph import StateGraph, END
 # Setup logging
 logger = logging.getLogger("socratic_onboarder")
 
+class C:
+    DIM = "\033[2m"
+    RESET = "\033[0m"
+
 # Robust PROJECT_ROOT calculation to handle flattened public repo vs nested private repo
 _current_file = Path(__file__).resolve()
 if "src" in _current_file.parts:
@@ -112,6 +116,9 @@ class SocraticOnboarder:
         
         while True:
             # Run graph step
+            if state['question_count'] == 0:
+                print(f"{C.DIM}[System]: Establishing Socratic link to Nexus Intelligence...{C.RESET}")
+            
             result = self.graph.invoke(state)
             state.update(result)
             

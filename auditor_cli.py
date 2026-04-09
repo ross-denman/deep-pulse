@@ -15,16 +15,12 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
+# Lightweight imports for startup speed
 from core.identity import load_identity
 from core.chronicle import read_ledger
 from core.reputation import ReputationService
 from core.network import MeshClient
 from storage.vault import DiscoveryVault
-
-from controllers.inquiry import InquiryController
-from controllers.consensus import ConsensusController
-from controllers.archive import ArchiveController
-from controllers.laboratory import LaboratoryController
 
 logging.basicConfig(level=logging.WARNING)
 
@@ -37,16 +33,61 @@ BANNER = f"{C.CYAN}{C.BOLD}=== The Chronicle: Auditor CLI ==={C.RESET}"
 
 class Bridge:
     def __init__(self):
-        self.identity = load_identity()
-        self.vault = DiscoveryVault(PROJECT_ROOT / "harvest" / "discovery_vault.json")
-        self.client = MeshClient()
-        self.rep_service = ReputationService()
-        self.rep_service.refresh_if_dirty(read_ledger())
-        
-        self.inquiry = InquiryController(self.client, self.identity, self.vault)
-        self.consensus = ConsensusController(self.client, self.identity, self.rep_service)
-        self.archive = ArchiveController(PROJECT_ROOT)
-        self.laboratory = LaboratoryController()
+        self.client = MeshClient() # MeshClient is lightweight (requests wrapper)
+        self._identity = None
+        self._vault = None
+        self._rep_service = None
+        self._inquiry = None
+        self._consensus = None
+        self._archive = None
+        self._laboratory = None
+
+    @property
+    def identity(self):
+        if self._identity is None:
+            self._identity = load_identity()
+        return self._identity
+
+    @property
+    def vault(self):
+        if self._vault is None:
+            self._vault = DiscoveryVault(PROJECT_ROOT / "harvest" / "discovery_vault.json")
+        return self._vault
+
+    @property
+    def rep_service(self):
+        if self._rep_service is None:
+            self._rep_service = ReputationService()
+            self._rep_service.refresh_if_dirty(read_ledger())
+        return self._rep_service
+
+    @property
+    def inquiry(self):
+        if self._inquiry is None:
+            from controllers.inquiry import InquiryController
+            self._inquiry = InquiryController(self.client, self.identity, self.vault)
+        return self._inquiry
+
+    @property
+    def consensus(self):
+        if self._consensus is None:
+            from controllers.consensus import ConsensusController
+            self._consensus = ConsensusController(self.client, self.identity, self.rep_service)
+        return self._consensus
+
+    @property
+    def archive(self):
+        if self._archive is None:
+            from controllers.archive import ArchiveController
+            self._archive = ArchiveController(self.vault)
+        return self._archive
+
+    @property
+    def laboratory(self):
+        if self._laboratory is None:
+            from controllers.laboratory import LaboratoryController
+            self._laboratory = LaboratoryController()
+        return self._laboratory
 
     def cmd_status(self, args):
         print(BANNER)
