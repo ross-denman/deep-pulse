@@ -155,7 +155,7 @@ if __name__ == "__main__":
     # Try to resolve identity for test instance
     try:
         sys.path.append(str(LIBRARY_ROOT.parent.parent))
-        from src.public.core.identity import load_identity
+        from core.identity import load_identity
         identity = load_identity()
         outpost_id = identity.outpost_id
     except:

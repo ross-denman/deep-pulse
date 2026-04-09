@@ -2,10 +2,10 @@ import logging
 import asyncio
 import json
 from typing import Dict, Any, List
-from src.public.core.search import BraveSearchClient
-from src.public.scouts.templates.web_scout import WebScout
-from src.private.master_queue import MasterOutpostQueue
-from src.public.core.models import PeriodicalBrief
+from core.search import BraveSearchClient
+from scouts.templates.web_scout import WebScout
+from private.master_queue import MasterOutpostQueue
+from core.models import PeriodicalBrief
 
 logger = logging.getLogger("hunt_controller")
 

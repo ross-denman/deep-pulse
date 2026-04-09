@@ -9,7 +9,7 @@ from typing import List, Dict, Any
 from pathlib import Path
 
 # Add library root to path for interface access
-LIBRARY_ROOT = Path(__file__).resolve().parent.parent
+LIBRARY_ROOT = Path(__file__).resolve().parent.parent.parent.parent
 if str(LIBRARY_ROOT) not in sys.path:
     sys.path.append(str(LIBRARY_ROOT))
 
@@ -20,13 +20,13 @@ if str(PROJECT_ROOT / "src" / "public") not in sys.path:
 
 try:
     from base_probe import BaseCuriosityProbe
-    from src.public.core.chronicle import create_entry
-    from src.public.core.identity import load_identity
+    from core.chronicle import create_entry
+    from core.identity import load_identity
 except ImportError:
     # Handle direct execution or different relative paths
     from ..base_probe import BaseCuriosityProbe
-    from src.public.core.chronicle import create_entry
-    from src.public.core.identity import load_identity
+    from core.chronicle import create_entry
+    from core.identity import load_identity
 
 logger = logging.getLogger("rss_sifter")
 
@@ -157,7 +157,7 @@ class RSSSifter(BaseCuriosityProbe):
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
-    from src.public.core.identity import load_identity
+    from core.identity import load_identity
     identity = load_identity()
     sifter = RSSSifter(outpost_id=identity.outpost_id)
     

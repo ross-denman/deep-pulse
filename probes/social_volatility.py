@@ -30,13 +30,13 @@ class SocialVolatilityProbe:
         
         for kw, velocity in velocity_map.items():
             if velocity > self.threshold:
-                logger.warning(f"🔥 VOLATILITY SPIKE: '{kw}' velocity at {velocity} (Threshold: {self.threshold})")
+                logger.warning(f"Ã°Å¸â€Â¥ VOLATILITY SPIKE: '{kw}' velocity at {velocity} (Threshold: {self.threshold})")
         
         return velocity_map
 
     async def trigger_verification_sweep(self, keyword: str, velocity: float):
         """Logic to notify The Nexus that a verification sweep is required."""
-        logger.info(f"⚖️ Sovereign Notary: Initiating Verification Sweep for volatile keyword: '{keyword}' (Velocity: {velocity})")
+        logger.info(f"Ã¢Å¡â€“Ã¯Â¸Â Sovereign Notary: Initiating Verification Sweep for volatile keyword: '{keyword}' (Velocity: {velocity})")
         
         # Integration with InquiryController would go here
         # For now, we notarize a internal grain

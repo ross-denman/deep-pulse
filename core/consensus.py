@@ -15,8 +15,8 @@ from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from typing import Any
 
-from src.public.core.identity import verify_signature_with_pubkey
-from src.public.core.reputation import ReputationService
+from core.identity import verify_signature_with_pubkey
+from core.reputation import ReputationService
 
 logger = logging.getLogger(__name__)
 

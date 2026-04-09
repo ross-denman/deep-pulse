@@ -4,7 +4,7 @@ from pathlib import Path
 from typing import List, Dict, Any
 
 # Ensure library root to path
-LIBRARY_ROOT = Path(__file__).resolve().parent.parent
+LIBRARY_ROOT = Path(__file__).resolve().parent.parent.parent.parent
 if str(LIBRARY_ROOT) not in sys.path:
     sys.path.append(str(LIBRARY_ROOT))
 

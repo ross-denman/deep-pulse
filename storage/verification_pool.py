@@ -2,11 +2,11 @@ import json
 import logging
 from pathlib import Path
 from typing import List, Dict, Any
-from src.public.core.contracts import VerificationRequest
+from core.contracts import VerificationRequest
 
 logger = logging.getLogger("verification_pool")
 
-PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent.parent
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
 POOL_FILE = PROJECT_ROOT / "the-chronicle" / "harvest" / "verification_pool.jsonld"
 
 class VerificationPool:

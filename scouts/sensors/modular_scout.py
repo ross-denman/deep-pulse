@@ -8,7 +8,7 @@ Coordinates with external investigative instances via API.
 
 import logging
 from typing import Dict, Any, List
-from src.public.scouts.base_scout import BaseScout
+from scouts.base_scout import BaseScout
 
 logger = logging.getLogger(__name__)
 

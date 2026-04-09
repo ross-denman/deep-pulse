@@ -7,7 +7,7 @@ from typing import List, Dict, Any, Optional
 
 logger = logging.getLogger("auditor_queue")
 
-PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent.parent
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
 DB_PATH = PROJECT_ROOT / "harvest" / "auditor_local.db"
 
 class AuditorQueue:

@@ -13,7 +13,7 @@ import os
 from pathlib import Path
 
 # Add project root to path
-PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
+PROJECT_ROOT = Path(__file__).resolve().parent
 LEDGER_FILE = PROJECT_ROOT / "harvest" / "chronicle.jsonld"
 
 app = Flask(__name__)

@@ -8,7 +8,7 @@ Monitors RSS/Atom for new Intelligence Proposals.
 
 import logging
 from typing import List, Dict, Any, Optional
-from src.public.scouts.base_scout import BaseScout
+from scouts.base_scout import BaseScout
 
 logger = logging.getLogger(__name__)
 

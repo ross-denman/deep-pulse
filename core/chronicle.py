@@ -11,20 +11,20 @@ from pathlib import Path
 from typing import Any
 import json
 
-from src.public.core.identity import OutpostIdentity, load_identity
-from src.public.core.crypto import (
+from core.identity import OutpostIdentity, load_identity
+from core.crypto import (
     compute_cid,
     compute_evidence_cid,
     compute_entity_id,
     canonical_json,
     verify_signature,
 )
-from src.public.core.sources import source_validator
+from core.sources import source_validator
 
 logger = logging.getLogger(__name__)
 
 # Resolve to sovereign-notary root (soul-ledger)
-PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent.parent.parent
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
 CHRONICLE_FILE = PROJECT_ROOT / "the-chronicle" / "harvest" / "chronicle.jsonld"
 
 # Sovereign Notary - Genesis Key v1.2

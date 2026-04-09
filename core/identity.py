@@ -15,10 +15,10 @@ from cryptography.hazmat.primitives.asymmetric.ed25519 import (
 )
 from dotenv import load_dotenv
 
-from src.public.core.crypto import sign_data, verify_signature
+from core.crypto import sign_data, verify_signature
 
 
-PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent.parent
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
 load_dotenv(PROJECT_ROOT / ".env")
 
 

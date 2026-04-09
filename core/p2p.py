@@ -23,15 +23,15 @@ from typing import Any, Dict, List, Set
 import httpx
 from pydantic import BaseModel, Field
 
-from src.public.core.identity import OutpostIdentity, load_identity
-from src.public.core.chronicle import read_ledger, verify_entry
+from core.identity import OutpostIdentity, load_identity
+from core.chronicle import read_ledger, verify_entry
 
 logger = logging.getLogger("p2p")
 
-PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
 OUTPOST_FILE = PROJECT_ROOT / "harvest" / "outposts.json"
 
-# ─── P2P Models ──────────────────────────────────────────────────
+# Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ P2P Models Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
 
 class MeshOutpost(BaseModel):
     """Represents a discovered peer in the mesh."""
@@ -49,7 +49,7 @@ class P2PMessage(BaseModel):
     payload: Dict[str, Any]
     signature: str
 
-# ─── P2P Manager ─────────────────────────────────────────────────
+# Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ P2P Manager Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
 
 class P2PManager:
     """Manages outpost discovery, gossip, and chronicle synchronization."""
@@ -152,7 +152,7 @@ class P2PManager:
                 missing = outpost_cids - self.known_cids
                 
                 if missing:
-                    logger.info(f"🔁 Sync: Outpost {outpost.outpost_id} has {len(missing)} missing CIDs.")
+                    logger.info(f"Ã°Å¸â€Â Sync: Outpost {outpost.outpost_id} has {len(missing)} missing CIDs.")
                     for cid in missing:
                         await self.pull_cid_from_outpost(cid, outpost)
 
@@ -189,7 +189,7 @@ class P2PManager:
         payload = {"cid": cid}
         msg = self._create_message("gossip", payload)
         
-        logger.info(f"📣 Gossiping Alpha Alert for CID: {cid}")
+        logger.info(f"Ã°Å¸â€œÂ£ Gossiping Alpha Alert for CID: {cid}")
         
         async with httpx.AsyncClient(timeout=5.0) as client:
             for outpost in self.outposts.values():
@@ -217,11 +217,11 @@ class P2PManager:
         source_url = msg.payload.get("source_url")
         if not source_url: return
 
-        logger.info(f"📩 [P2P] Received Validation Inquiry for {source_url} from {msg.sender_id}")
+        logger.info(f"Ã°Å¸â€œÂ© [P2P] Received Validation Inquiry for {source_url} from {msg.sender_id}")
         
         # Simple Logic: If we've seen this source and it has SR-G > 0, we validate it.
         # Otherwise, we might check our local ledger for matching grains.
-        from src.public.bridge import REPUTATION_DB
+        from bridge import REPUTATION_DB
         valid = False
         if REPUTATION_DB.exists():
             with open(REPUTATION_DB, "r") as f:
@@ -254,7 +254,7 @@ class P2PManager:
         self.validation_counts[source_url].add(msg.sender_id)
         count = len(self.validation_counts[source_url])
         
-        logger.info(f"⚖️  [QUORUM] {source_url} validation count: {count}/2")
+        logger.info(f"Ã¢Å¡â€“Ã¯Â¸Â  [QUORUM] {source_url} validation count: {count}/2")
         
         if count >= 2: # 2+1 Quorum (2 responses + self)
             logger.info(f"[WIN] [QUORUM REACHED] {source_url} is now VERIFIED by the mesh.")
@@ -262,7 +262,7 @@ class P2PManager:
 
     def _flip_source_status(self, source_url: str, new_status: str):
         """Update local reputation database with verified status."""
-        from src.public.bridge import REPUTATION_DB
+        from bridge import REPUTATION_DB
         if not REPUTATION_DB.exists(): return
         
         try:
@@ -335,5 +335,5 @@ class P2PManager:
             # In a real mesh, we would now request the full data for this CID
             # For simulation, we just log the alert.
 
-# ─── Global Instance ──────────────────────────────────────────────
+# Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ Global Instance Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
 p2p = P2PManager()

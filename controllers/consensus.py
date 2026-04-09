@@ -9,12 +9,12 @@ Decouples consensus policy from mechanical signature verification.
 import logging
 from typing import Any, Dict, List, Optional, Tuple
 
-from src.public.core.crypto import verify_signature
-from src.public.core.identity import OutpostIdentity
-from src.public.core.network import MeshClient
-from src.public.core.chronicle import verify_entry, read_ledger, CHRONICLE_FILE as LEDGER_FILE, calculate_consensus_weight, create_entry
-from src.public.core.reputation import ReputationService
-from src.public.core.sources import source_validator
+from core.crypto import verify_signature
+from core.identity import OutpostIdentity
+from core.network import MeshClient
+from core.chronicle import verify_entry, read_ledger, CHRONICLE_FILE as LEDGER_FILE, calculate_consensus_weight, create_entry
+from core.reputation import ReputationService
+from core.sources import source_validator
 import json
 import os
 
@@ -166,7 +166,7 @@ class ConsensusController:
     def run_metabolic_audit(self) -> Dict[str, Any]:
         """Aggregate resource grid states from the metabolism engine."""
         try:
-            from src.public.core.metabolism import metabolism
+            from core.metabolism import metabolism
             return {
                 "power": metabolism.get_grid_state("power") or metabolism._grid_caps.get("power", 0),
                 "water": metabolism.get_grid_state("water") or metabolism._grid_caps.get("water", 0),

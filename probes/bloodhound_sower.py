@@ -6,12 +6,12 @@ import sys
 from pathlib import Path
 
 # Add project root to path
-PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.append(str(PROJECT_ROOT / "src" / "public"))
 
 try:
-    from src.public.probes.library.manager import ProbeManager
-    from src.public.core.identity import load_identity
+    from probes.library.manager import ProbeManager
+    from core.identity import load_identity
 except ImportError:
     # Handle direct execution or alternative path structures
     sys.path.append(str(PROJECT_ROOT / "src" / "public" / "probes" / "library"))
@@ -21,7 +21,7 @@ except ImportError:
         # Fallback to current relative path if inside probes folder
         sys.path.append(str(Path(__file__).resolve().parent / "library"))
         from manager import ProbeManager
-    from src.public.core.identity import load_identity
+    from core.identity import load_identity
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 logger = logging.getLogger("bloodhound_sower")

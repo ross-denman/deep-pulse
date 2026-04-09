@@ -12,8 +12,20 @@ import logging
 import time
 import random
 from typing import List, Dict, Any, Optional
+from dataclasses import dataclass, field
+import os
 
 logger = logging.getLogger(__name__)
+
+@dataclass
+class ScoutConfig:
+    use_proxy: bool = False
+    proxy_url: str = field(default_factory=lambda: os.getenv("BRIDGE_URL", "http://localhost:4110"))
+    strict_proxy: bool = False
+    
+    def check_compute_budget(self, session_cost: float, elapsed: int) -> bool:
+        # Placeholder for budget logic
+        return True
 
 class BaseScout(abc.ABC):
     """Abstract Base Class for Curiosity-driven Scouts."""
@@ -46,14 +58,14 @@ class BaseScout(abc.ABC):
         
         # Instantiate Standalone Curiosity Engine & Circuit Breaker
         try:
-            from src.public.core.curiosity import CuriosityBot
+            from core.curiosity import CuriosityBot
             self.curiosity_bot = CuriosityBot(self.memory, self.perimeter)
         except ImportError:
             logger.warning("CuriosityBot module not found. Discovery heuristics will be limited.")
             self.curiosity_bot = None
 
         try:
-            from src.public.core.breaker import CircuitBreaker
+            from core.breaker import CircuitBreaker
             self.breaker = CircuitBreaker(failure_threshold=3)
         except ImportError:
             logger.warning("CircuitBreaker module not found. Skipping safety checks.")
@@ -130,7 +142,7 @@ class BaseScout(abc.ABC):
             # 2.5 S2A (Surprise-to-Action) Deep Dive Trigger
             dive_target = signal.get("dive_target")
             if dive_target:
-                logger.warning(f"⚡ S2A TRIGGER DETECTED: Initiating Deep Dive into {dive_target}")
+                logger.warning(f"Ã¢Å¡Â¡ S2A TRIGGER DETECTED: Initiating Deep Dive into {dive_target}")
                 depth = max(depth, 1) # Ensure we have at least one more recursive step
                 from urllib.parse import urljoin
                 current_params["url"] = urljoin(target_url, dive_target)
@@ -149,12 +161,12 @@ class BaseScout(abc.ABC):
             if schema_drift:
                 auto_approve = current_params.get("auto_approve_schema_drift", False)
                 if auto_approve:
-                    logger.warning(f"[DEC SYSTEM] Autonomous Schema Gate: auto_approve_schema_drift is ENABLED for {p_id}. Skipping operator approval.")
-                    logger.info(f"⚡ Learning new layout autonomously for {target_url}...")
+                    logger.warning(f"[DEC SYSTEM] Autonomous Schema Gate: auto_approve_schema_drift is ENABLED for {self.perimeter}. Skipping operator approval.")
+                    logger.info(f"Ã¢Å¡Â¡ Learning new layout autonomously for {target_url}...")
                 else:
                     logger.warning(f"[DEC SYSTEM] Semantic Schema Mismatch detected. Routing to Schema Gate...")
                     try:
-                        from src.public.core.manager import AgentManager
+                        from core.manager import AgentManager
                         orchestrator = AgentManager()
                         old_f = signal.get("drift_old_field", "unknown")
                         new_f = signal.get("drift_new_field", "unknown")
@@ -232,7 +244,7 @@ class BaseScout(abc.ABC):
         keywords_found = signal.get("keywords_found", [])
         scent_anchors = ["2.55x", "osteomalacia", "135 billion", "$42 billion", "bead", "lutnick", "10^26 flops", "eo 14365"]
         if any(k in scent_anchors for k in [kw.lower() for kw in keywords_found]):
-            logger.info("⚡ Real-time Surprise Metric: High-resolution anchor detected. Elevating Signal.")
+            logger.info("Ã¢Å¡Â¡ Real-time Surprise Metric: High-resolution anchor detected. Elevating Signal.")
             return 0.95
             
         # Novelty weighting based on number of keywords found

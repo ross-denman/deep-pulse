@@ -26,7 +26,7 @@ class SourceAuditor(BaseCuriosityProbe):
     def __init__(self, outpost_id: str, bridge_url: str = "http://localhost:4110"):
         super().__init__(outpost_id, bridge_url)
         # Reputation database location (Sprint 06 Standard)
-        self.repo_path = Path(__file__).resolve().parent.parent.parent.parent.parent / "harvest" / "source_reputation.json"
+        self.repo_path = Path(__file__).resolve().parent.parent.parent.parent / "harvest" / "source_reputation.json"
         self._ensure_repo()
 
     def _ensure_repo(self):

@@ -6,12 +6,11 @@ import sys
 import os
 
 # Ensure project root is on path
-PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
-sys.path.insert(0, str(PROJECT_ROOT / "public"))
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
-from src.public.scouts.templates.web_scout import WebScout
-from src.public.scouts.base_scout import ScoutConfig
+from scouts.templates.web_scout import WebScout
+from scouts.base_scout import ScoutConfig
 
 logger = logging.getLogger("laboratory_controller")
 
@@ -24,7 +23,7 @@ class LaboratoryController:
     def __init__(self, scout: Optional[WebScout] = None):
         if not scout:
             # Default Lab Configuration
-            from src.public.scouts.base_scout import ScoutConfig
+            from scouts.base_scout import ScoutConfig
             config = ScoutConfig(use_proxy=True) # Enable Tor by default for Lab
             
             # Stubs to satisfy BaseScout

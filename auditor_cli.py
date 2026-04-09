@@ -11,27 +11,20 @@ import sys
 import subprocess
 from pathlib import Path
 
-# Robust PROJECT_ROOT calculation to handle flattened public repo vs nested private repo
-_current_file = Path(__file__).resolve()
-if "src" in _current_file.parts:
-    # soul-ledger: /src/public/auditor_cli.py -> 2 parents up to /src, then 1 more to root
-    PROJECT_ROOT = _current_file.parent.parent.parent
-else:
-    # deep-pulse: /auditor_cli.py -> 1 parent up to root
-    PROJECT_ROOT = _current_file.parent
-
+# Ensure project root is on path
+PROJECT_ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
-from src.public.core.identity import load_identity
-from src.public.core.chronicle import read_ledger
-from src.public.core.reputation import ReputationService
-from src.public.core.network import MeshClient
-from src.public.storage.vault import DiscoveryVault
+from core.identity import load_identity
+from core.chronicle import read_ledger
+from core.reputation import ReputationService
+from core.network import MeshClient
+from storage.vault import DiscoveryVault
 
-from src.public.controllers.inquiry import InquiryController
-from src.public.controllers.consensus import ConsensusController
-from src.public.controllers.archive import ArchiveController
-from src.public.controllers.laboratory import LaboratoryController
+from controllers.inquiry import InquiryController
+from controllers.consensus import ConsensusController
+from controllers.archive import ArchiveController
+from controllers.laboratory import LaboratoryController
 
 logging.basicConfig(level=logging.WARNING)
 
@@ -40,7 +33,7 @@ class C:
         "\033[95m", "\033[94m", "\033[96m", "\033[92m", "\033[93m", "\033[91m", "\033[1m", "\033[2m", "\033[0m"
     )
 
-BANNER = f"{C.CYAN}{C.BOLD}--- The Chronicle: Auditor CLI ---{C.RESET}"
+BANNER = f"{C.CYAN}{C.BOLD}=== The Chronicle: Auditor CLI ==={C.RESET}"
 
 class Bridge:
     def __init__(self):
@@ -61,28 +54,35 @@ class Bridge:
         mesh = self.inquiry.get_mesh_state()
         valid, verified, total = self.consensus.audit_system_integrity()
         
-        from src.public.core.reputation import ReputationTier
+        from core.reputation import ReputationTier
         
         # Sprint 16 Badge Logic
-        status_label = f"[{rep.tier.name}]"
-        if rep.tier == ReputationTier.UNVERIFIED:
-            badge = f"{C.CYAN}{C.DIM}{status_label}{C.RESET}"
-        elif rep.tier == ReputationTier.SCOUT:
-            badge = f"{C.YELLOW}{status_label}{C.RESET}"
-        elif rep.tier == ReputationTier.AUDITOR:
-            badge = f"{C.YELLOW}{C.BOLD}{status_label}{C.RESET}"
-        elif rep.tier == ReputationTier.SOVEREIGN_NOTARY:
-            badge = f"{C.HEADER}{C.BOLD}{status_label}{C.RESET}"
+        if rep is None:
+            badge = f"{C.CYAN}{C.DIM}[PROVISIONAL]{C.RESET}"
+            score = 0.0
+            grains = 0
         else:
-            badge = status_label
+            status_label = f"[{rep.tier.name}]"
+            score = rep.score
+            grains = rep.grain_balance
+            if rep.tier.name == "UNVERIFIED":
+                badge = f"{C.CYAN}{C.DIM}{status_label}{C.RESET}"
+            elif rep.tier.name == "SCOUT":
+                badge = f"{C.YELLOW}{status_label}{C.RESET}"
+            elif rep.tier.name == "AUDITOR":
+                badge = f"{C.YELLOW}{C.BOLD}{status_label}{C.RESET}"
+            elif rep.tier.name == "SOVEREIGN_NOTARY":
+                badge = f"{C.HEADER}{C.BOLD}{status_label}{C.RESET}"
+            else:
+                badge = status_label
 
-        if rep.score < 0.5: # Near demotion or just started
-             badge = f"{C.RED}{C.BOLD}[SKEPTIC]{C.RESET} {badge}"
+            if rep.score < 0.5: # Near demotion or just started
+                 badge = f"{C.RED}{C.BOLD}[SKEPTIC]{C.RESET} {badge}"
 
         print(f"  {C.YELLOW}Probe ID:{C.RESET}    {self.identity.outpost_id}")
         print(f"  {C.YELLOW}Status:{C.RESET}      {badge}")
-        print(f"  {C.YELLOW}Reputation:{C.RESET}  {rep.score}")
-        print(f"  {C.YELLOW}Grains:{C.RESET}      {rep.grain_balance}")
+        print(f"  {C.YELLOW}Reputation:{C.RESET}  {score}")
+        print(f"  {C.YELLOW}Grains:{C.RESET}      {grains}")
         print(f"  {C.YELLOW}Chronicle:{C.RESET}   {total} entries ({C.GREEN if valid else C.RED}{verified} verified{C.RESET})")
         print(f"  {C.YELLOW}Mesh Peers:{C.RESET}  {len(mesh['peers'])}")
         print()
@@ -166,7 +166,7 @@ class Bridge:
         print(f"Submision Result: CID={cid}, Status={status}")
 
         # 2. Verify Epistemic Firewall Tagging
-        from src.public.core.sources import source_validator
+        from core.sources import source_validator
         is_volatile = source_validator.is_volatile(target)
         institutional = source_validator.get_source_metadata(target).get("is_institutional")
         vetted = source_validator.get_source_metadata(target).get("is_notary_vetted")
@@ -189,14 +189,14 @@ class Bridge:
         await self.inquiry.process_heartbeat(args.interval or 30)
 
     def cmd_onboard(self, args):
-        from src.private.agents.onboarding import SocraticOnboarder
+        from private.agents.onboarding import SocraticOnboarder
         onboarder = SocraticOnboarder()
         asyncio.run(onboarder.run_cli_session())
 
     def cmd_brief(self, args):
         print(f"{C.CYAN}Synthesizing intelligence brief ({args.hours}h)...{C.RESET}")
-        from src.private.briefing_engine import BriefingEngine
-        from src.private.agents.reporter import ReporterAgent
+        from private.briefing_engine import BriefingEngine
+        from private.agents.reporter import ReporterAgent
         
         engine = BriefingEngine()
         digest = engine.synthesize_digest(hours_back=args.hours)
@@ -207,7 +207,7 @@ class Bridge:
         print(f"{C.GREEN}[OK] Brief saved to: {path}{C.RESET}")
 
     def cmd_agenda(self, args):
-        from src.private.controllers.agenda import AgendaController
+        from private.controllers.agenda import AgendaController
         controller = AgendaController()
         if args.seed:
             count = controller.seed_agenda_grains()
@@ -217,10 +217,10 @@ class Bridge:
 
     def cmd_hunt(self, args):
         print(f"{C.CYAN}Initiating Manual Hunt Cycle...{C.RESET}")
-        from src.public.controllers.hunt import HuntController
-        from src.public.scouts.templates.web_scout import WebScout
-        from src.public.scouts.base_scout import ScoutConfig
-        from src.public.storage.auditor_queue import AuditorQueue
+        from controllers.hunt import HuntController
+        from scouts.templates.web_scout import WebScout
+        from scouts.base_scout import ScoutConfig
+        from storage.auditor_queue import AuditorQueue
         
         scout = WebScout(ScoutConfig(use_proxy=False))
         controller = HuntController(AuditorQueue(), scout)
@@ -251,7 +251,7 @@ class Bridge:
 
     def cmd_export(self, args):
         print(f"{C.CYAN}Generating Sealed Audit Package (.tar.gz)...{C.RESET}")
-        from src.public.controllers.export import ExportController
+        from controllers.export import ExportController
         exporter = ExportController(PROJECT_ROOT)
         path = asyncio.run(exporter.generate_package(cid=args.cid, tag=args.tag))
         if path:
@@ -286,6 +286,14 @@ class Bridge:
                 print(f"{C.RED}Daemon log not found. Is it running?{C.RESET}")
 
 def main():
+    # Fix for Windows encoding issues
+    if sys.platform == "win32":
+        try:
+            import io
+            sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+        except Exception:
+            pass
+
     bridge = Bridge()
     parser = argparse.ArgumentParser(description="Deep Pulse Bridge")
     subparsers = parser.add_subparsers(dest="command")

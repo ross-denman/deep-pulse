@@ -9,12 +9,12 @@ Acts as a high-level bridge between the CLI interface and low-level mechanisms.
 import logging
 from typing import Any, Dict, List, Optional
 
-from src.public.core.network import MeshClient
-from src.public.core.identity import OutpostIdentity
-from src.public.core.chronicle import create_entry
-from src.public.core.sources import source_validator
-from src.public.storage.vault import DiscoveryVault
-from src.public.core.contracts import ClaimHandshake, ProofOfDiscovery
+from core.network import MeshClient
+from core.identity import OutpostIdentity
+from core.chronicle import create_entry
+from core.sources import source_validator
+from storage.vault import DiscoveryVault
+from core.contracts import ClaimHandshake, ProofOfDiscovery
 import asyncio
 import json
 from datetime import datetime, timezone
@@ -40,7 +40,7 @@ class InquiryController:
     async def get_active_inquiries(self) -> List[Dict[str, Any]]:
         """Retrieve enqueued Truth Seeds from the local MasterOutpostQueue."""
         try:
-            from src.private.master_queue import MasterOutpostQueue
+            from private.master_queue import MasterOutpostQueue
             queue = MasterOutpostQueue()
             return queue.list_open_inquiries()
         except Exception as e:
@@ -137,7 +137,7 @@ class InquiryController:
     def get_mesh_state(self) -> Dict[str, Any]:
         """Aggregate the state of the P2P Discovery Mesh (Simulation)."""
         try:
-            from src.public.core.p2p import P2PManager
+            from core.p2p import P2PManager
             p2p = P2PManager()
             return {
                 "outpost_id": p2p.identity.outpost_id,
@@ -151,7 +151,7 @@ class InquiryController:
     async def sync_mesh_discovery(self) -> int:
         """Synchronize with discovered peers to reconcile mesh state."""
         try:
-            from src.public.core.p2p import P2PManager
+            from core.p2p import P2PManager
             p2p = P2PManager()
             p2p._load_outposts()
             p2p._refresh_cid_cache()
@@ -170,7 +170,7 @@ class InquiryController:
     async def process_heartbeat(self, interval: int = 30):
         """Maintain the OCI Heartbeat (maintain_gravity) link."""
         try:
-            from src.public.core.heartbeat import HeartbeatManager
+            from core.heartbeat import HeartbeatManager
             manager = HeartbeatManager(interval_minutes=interval)
             logger.info(f"Heartbeat activated (interval: {interval}m)")
             await manager.run_forever()

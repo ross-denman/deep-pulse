@@ -6,14 +6,15 @@ Specialized scout for web-based discovery.
 Uses Crawl4AI + Adaptive RAG cost shield.
 """
 
+import os
 import logging
 import httpx
 import random
 import time
 from typing import List, Dict, Any, Optional
 from crawl4ai import AsyncWebCrawler
-from src.public.scouts.base_scout import BaseScout
-from src.public.core.llm_client import llm
+from scouts.base_scout import BaseScout
+from core.llm_client import llm
 
 logger = logging.getLogger(__name__)
 
@@ -143,7 +144,7 @@ class WebScout(BaseScout):
                 # Check for "Minimal Yield Fetch" (Common on JS-Protected PDFs)
                 content_len = len(result.markdown or "")
                 if is_document and content_len < 300:
-                    logger.warning(f"\n{'-'*60}\n🚨 OPERATOR ALERT: PROTECTED DOCUMENT DETECTED\n{'-'*60}")
+                    logger.warning(f"\n{'-'*60}\nÃ°Å¸Å¡Â¨ OPERATOR ALERT: PROTECTED DOCUMENT DETECTED\n{'-'*60}")
                     logger.warning(f"Target: {url}")
                     logger.warning(f"Result: {content_len} bytes extracted (JS-Challenge likely)")
                     logger.warning(f"INSTRUCTION: PDF seems protected. Download locally and move to 'data/local_ingest/'")
@@ -151,11 +152,11 @@ class WebScout(BaseScout):
                     logger.warning(f"{'-'*60}\n")
                     return {"markdown": "", "status_code": 403, "error": "Protected PDF: Manual ingest required."}
                 
-                # ─── Recursive Discovery (Sprint 11) ───
+                # Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ Recursive Discovery (Sprint 11) Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
                 # If depth > 0, we can use crawl4ai's link extraction or manual dive
                 target_depth = params.get("depth", 0)
                 if target_depth > 0:
-                    logger.info(f"⚡ URGENT RECURSION: Deep Dive level {target_depth} activated for {url}")
+                    logger.info(f"Ã¢Å¡Â¡ URGENT RECURSION: Deep Dive level {target_depth} activated for {url}")
                 
                 return {"markdown": result.markdown, "status_code": result.status_code if hasattr(result, "status_code") else 200, "error": None, "depth_level": target_depth}
         except Exception as e:

@@ -17,14 +17,14 @@ from pathlib import Path
 
 # Add project root to path
 # heartbeat.py is in deep-pulse/src/public/core/
-PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent.parent.parent
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys_path = str(PROJECT_ROOT / "deep-ledger" / "src")
 import sys
 if sys_path not in sys.path:
     sys.path.append(sys_path)
 
-from src.public.core.identity import load_identity
-from src.public.core.reputation import ReputationService
+from core.identity import load_identity
+from core.reputation import ReputationService
 
 logger = logging.getLogger("heartbeat")
 
@@ -98,7 +98,7 @@ class HeartbeatManager:
                 
             except Exception as e:
                 logger.error("Heartbeat error: %s", e)
-                print(f"  {C.RED}✗ Heartbeat failed: {e}{C.RESET}")
+                print(f"  {C.RED}Ã¢Å“â€” Heartbeat failed: {e}{C.RESET}")
 
             # Wait for next interval
             await asyncio.sleep(self.interval)

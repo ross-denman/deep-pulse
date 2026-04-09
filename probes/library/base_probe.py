@@ -5,7 +5,7 @@ import sys
 from pathlib import Path
 from typing import Any, Dict, List
 
-from src.public.core.identity import load_identity
+from core.identity import load_identity
 
 logger = logging.getLogger("base_probe")
 

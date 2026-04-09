@@ -17,7 +17,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 # Add project root to path
-PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent.parent
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
 LEDGER_FILE = PROJECT_ROOT / "harvest" / "chronicle.jsonld"
 
 logging.basicConfig(
@@ -39,7 +39,7 @@ class SilentPulse:
         Format:
         [outpost_id:4][count:2][verified:2][last_cid_short:8][anomaly_flag:1]
         """
-        from src.public.core.chronicle import read_ledger
+        from core.chronicle import read_ledger
         ledger = read_ledger()
         
         total = len(ledger)
@@ -72,7 +72,7 @@ class SilentPulse:
         print(f"{'-'*40}\n")
 
 if __name__ == "__main__":
-    from src.public.core.identity import load_identity
+    from core.identity import load_identity
     identity = load_identity()
     pulse = SilentPulse(identity.outpost_id)
     payload = pulse.create_truth_summary()

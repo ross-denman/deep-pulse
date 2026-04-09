@@ -24,7 +24,7 @@ from typing import Any, Dict, List, Optional, Tuple
 import json
 
 # Resolve to soul-ledger root
-PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent.parent
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
 REPUTATION_FILE = PROJECT_ROOT / "harvest" / "reputation.json"
 SOVEREIGN_TREASURY_ID = "TREASURY"
 
@@ -130,7 +130,7 @@ class SourceReputation:
     @property
     def multiplier(self) -> float:
         """Calculate the Sovereign Multiplier for this source."""
-        from src.public.core.sources import source_validator
+        from core.sources import source_validator
         return source_validator.get_multiplier(self.source_url)
 
 

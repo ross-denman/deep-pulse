@@ -15,8 +15,8 @@ class KuzuDriver:
     def __init__(self, db_path: str = None):
         if db_path is None:
             # Default to harvest/kuzu_db
-            project_root = Path(__file__).resolve().parent.parent.parent
-            db_path = str(project_root / "harvest" / "kuzu_db")
+            PROJECT_ROOT = Path(__file__).resolve().parent.parent
+            db_path = str(PROJECT_ROOT / "harvest" / "kuzu_db")
         
         self.db_path = db_path
         self._db = None
