@@ -153,20 +153,21 @@ class EmailIngress:
             self.kuzu.connect()
             # 1. Create Chronicle Entry
             self.kuzu._conn.execute(
-                "CREATE (c:ChronicleEntry {id: $id, title: $title, timestamp: $ts})", 
+                "CREATE (c:ChronicleEntry) SET c.id = $id, c.title = $title, c.timestamp = $ts", 
                 {"id": pulse_id, "title": title, "ts": datetime.now(timezone.utc).isoformat()}
             )
             # 2. Add Source Entity
             source_name = f"Source: {source}"
-            check = self.kuzu._conn.execute("MATCH (e:Entity {name: $name}) RETURN e.name", {"name": source_name})
+            check = self.kuzu._conn.execute("MATCH (e:Entity) WHERE e.name = $name RETURN e.name", {"name": source_name})
             if not check.has_next():
                  self.kuzu._conn.execute(
-                    "CREATE (e:Entity {name: $name, type: 'EMAIL_SOURCE', description: $desc})",
+                    "CREATE (e:Entity) SET e.name = $name, e.type = 'EMAIL_SOURCE', e.description = $desc",
                     {"name": source_name, "desc": f"Automated Ingress from {source}"}
                 )
             # 3. Link
             self.kuzu._conn.execute(
-                "MATCH (e:Entity {name: $name}), (c:ChronicleEntry {id: $id}) "
+                "MATCH (e:Entity), (c:ChronicleEntry) "
+                "WHERE e.name = $name AND c.id = $id "
                 "CREATE (e)-[:MENTIONED_IN]->(c)",
                 {"name": source_name, "id": pulse_id}
             )

@@ -236,8 +236,8 @@ class Bridge:
 
     def cmd_brief(self, args):
         print(f"{C.CYAN}Synthesizing intelligence brief ({args.hours}h)...{C.RESET}")
-        from private.briefing_engine import BriefingEngine
-        from private.agents.reporter import ReporterAgent
+        from core.briefing import BriefingEngine
+        from agents.reporter import ReporterAgent
         
         engine = BriefingEngine()
         digest = engine.synthesize_digest(hours_back=args.hours)
@@ -248,7 +248,7 @@ class Bridge:
         print(f"{C.GREEN}[OK] Brief saved to: {path}{C.RESET}")
 
     def cmd_agenda(self, args):
-        from private.controllers.agenda import AgendaController
+        from controllers.agenda import AgendaController
         controller = AgendaController()
         if args.seed:
             count = controller.seed_agenda_grains()
@@ -309,7 +309,7 @@ class Bridge:
             log_file = log_dir / "nexus_daemon.log"
             
             # Use absolute path for daemon.py
-            daemon_script = PROJECT_ROOT.parent.parent / "src" / "private" / "daemon.py"
+            daemon_script = PROJECT_ROOT / "daemon.py"
             subprocess.Popen(
                 [sys.executable, str(daemon_script)],
                 stdout=open(log_file, "a"),

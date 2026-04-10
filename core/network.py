@@ -88,6 +88,12 @@ class MeshClient:
         response.raise_for_status()
         return response.json()
 
+    def get_board_sync(self) -> Dict[str, Any]:
+        """Fetch the enriched Inquiry Board / Work Orders feed."""
+        response = self._client.get("/board/sync")
+        response.raise_for_status()
+        return response.json()
+
     def get_snapshot(self, outpost_id: str, signature: str) -> bytes:
         """Request a full Granary snapshot (Mirror).
 

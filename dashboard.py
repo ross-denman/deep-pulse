@@ -265,6 +265,13 @@ DASHBOARD_TEMPLATE = """
             </div>
 
             <div class="side-bars">
+                <div class="node-info" style="margin-bottom: 2rem; border-color: var(--accent-primary);">
+                    <div class="sidebar-title" style="color: var(--accent-primary);">⚖️ Inquiry Board</div>
+                    <div id="inquiry-board">
+                        <div style="font-size: 0.8rem; color: var(--text-dim);">Fetching global work orders...</div>
+                    </div>
+                </div>
+
                 <div class="node-info" style="margin-bottom: 2rem;">
                     <div class="sidebar-title">Regional Persistence</div>
                     <div class="info-row">
@@ -288,6 +295,48 @@ DASHBOARD_TEMPLATE = """
     </div>
 
     <script>
+        async function fetchBoard() {
+            try {
+                const response = await fetch('/api/board');
+                const data = await response.json();
+                const container = document.getElementById('inquiry-board');
+                
+                if (!data.work_orders || data.work_orders.length === 0) {
+                    container.innerHTML = '<div style="font-size: 0.8rem; color: var(--text-dim);">No active work orders.</div>';
+                    return;
+                }
+
+                container.innerHTML = '';
+                data.work_orders.forEach(inq => {
+                    const el = document.createElement('div');
+                    el.style.padding = '1rem';
+                    el.style.background = 'rgba(255,255,255,0.02)';
+                    el.style.borderRadius = '12px';
+                    el.style.marginBottom = '1rem';
+                    el.style.border = '1px solid var(--glass-border)';
+
+                    const progress = (inq.verifier_pool.current / inq.verifier_pool.required) * 100;
+
+                    el.innerHTML = `
+                        <div style="font-size: 0.7rem; font-family: 'JetBrains Mono'; color: var(--accent-primary); margin-bottom: 0.5rem;">
+                            ID: ${inq.id}
+                        </div>
+                        <div style="font-weight: 600; font-size: 0.9rem; margin-bottom: 0.5rem;">${inq.title}</div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                            <span style="font-size: 0.75rem; color: var(--warning);">🪙 ${inq.grain_bounty} Grains</span>
+                            <span style="font-size: 0.75rem; color: var(--text-dim);">${inq.verifier_pool.current}/${inq.verifier_pool.required} Signed</span>
+                        </div>
+                        <div style="width: 100%; height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px;">
+                            <div style="width: ${progress}%; height: 100%; background: var(--success); border-radius: 2px;"></div>
+                        </div>
+                    `;
+                    container.appendChild(el);
+                });
+            } catch (e) {
+                console.error("Board Fetch Failed:", e);
+            }
+        }
+
         async function fetchState() {
             try {
                 const response = await fetch('/api/stats');
@@ -330,7 +379,9 @@ DASHBOARD_TEMPLATE = """
         }
 
         setInterval(fetchState, 5000); // 5s Refresh
+        setInterval(fetchBoard, 10000); // 10s Board Refresh
         fetchState();
+        fetchBoard();
     </script>
 </body>
 </html>
@@ -339,6 +390,18 @@ DASHBOARD_TEMPLATE = """
 @app.route("/")
 def index():
     return render_template_string(DASHBOARD_TEMPLATE)
+
+@app.route("/api/board")
+def board():
+    """Proxy the Notary's inquiry board for the dashboard."""
+    import requests
+    try:
+        # Assuming the Notary is on the same host or use env var
+        bridge_url = os.environ.get("BRIDGE_URL", "http://localhost:4110")
+        resp = requests.get(f"{bridge_url}/board/sync")
+        return jsonify(resp.json())
+    except Exception as e:
+        return jsonify({"work_orders": [], "error": str(e)})
 
 @app.route("/api/stats")
 def stats():
@@ -376,4 +439,4 @@ def stats():
     })
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=4444)
+    app.run(host="0.0.0.0", port=5173)

@@ -38,13 +38,12 @@ class InquiryController:
         self.vault = vault
 
     async def get_active_inquiries(self) -> List[Dict[str, Any]]:
-        """Retrieve enqueued Truth Seeds from the local MasterOutpostQueue."""
+        """Retrieve the global 'Work Order' feed from the Inquiry Board."""
         try:
-            from private.master_queue import MasterOutpostQueue
-            queue = MasterOutpostQueue()
-            return queue.list_open_inquiries()
+            board = self.client.get_board_sync()
+            return board.get("work_orders", [])
         except Exception as e:
-            logger.error(f"Failed to retrieve active inquiries: {e}")
+            logger.error(f"Failed to retrieve inquiry board: {e}")
             return []
 
     def sync_mesh(self) -> List[Dict[str, Any]]:

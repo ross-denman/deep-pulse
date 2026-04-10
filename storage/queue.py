@@ -121,8 +121,10 @@ class InquiryQueue:
                 WHERE (status = 'QUEUED' OR status = 'INQUIRY_OPEN') AND expires_at < ?
             """, (now,))
 
+MasterOutpostQueue = InquiryQueue
+
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
-    q = MasterOutpostQueue()
+    q = InquiryQueue()
     q.enqueue_grain("test_id", "Meta Variance Found", {"link": "https://example.com"}, gravity=10.0)
     print(q.list_open_inquiries())
